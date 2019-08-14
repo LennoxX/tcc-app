@@ -1,1 +1,30 @@
-<p>professor-list works!</p>
+<section class="content-header">
+  <app-bread-crumb [items]="[{text: 'Professores'}]"></app-bread-crumb>
+  <h1>
+    Lista de Professores
+  </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <p-table styleClass="table table-bordered table-hover" [value]="cars">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Vin</th>
+        <th>Year</th>
+        <th>Brand</th>
+        <th>Color</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-car>
+      <tr>
+        <td>{{car.vin}}</td>
+        <td>{{car.year}}</td>
+        <td>{{car.brand}}</td>
+        <td>{{car.color}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

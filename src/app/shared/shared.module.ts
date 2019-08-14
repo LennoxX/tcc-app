@@ -5,6 +5,7 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { BreadCrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -13,8 +14,9 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     RouterModule,
     CommonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TableModule
   ],
-  exports: [HeaderNavComponent, SideMenuComponent, BreadCrumbComponent]
+  exports: [HeaderNavComponent, SideMenuComponent, BreadCrumbComponent, TableModule]
 })
 export class SharedModule { }

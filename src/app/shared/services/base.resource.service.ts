@@ -10,7 +10,7 @@ import { Response } from '../models/response.model';
 import { ConfigService } from './config.service';
 import { Page } from '../models/page';
 
-export abstract class BaseResourceService<T extends BaseResourceModel>{
+export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   protected http: HttpClient;
   protected configService: ConfigService = new ConfigService();
@@ -21,35 +21,35 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
   }
 
   getAll(): Observable<T[]> {
-    let url = `${this.configService.getApiUrl()}${this.apiPath}`;
+    const url = `${this.configService.getApiUrl()}${this.apiPath}`;
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToResources)
-    )
+    );
   }
 
   findAll(page: number, count: number): Observable<Page<T>> {
-    let url = `${this.configService.getApiUrl()}${this.apiPath}/${page}/${count}`;      
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/${page}/${count}`;
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataPagesToResources)
-    )
+    );
   }
 
   getById(id: number): Observable<T> {
-    let url = `${this.configService.getApiUrl()}${this.apiPath}/${id}`;
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/${id}`;
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToResource)
-    )
+    );
   }
 
   create(resource: T): Observable<T> {
-    let url = `${this.configService.getApiUrl()}${this.apiPath}`;
+    const url = `${this.configService.getApiUrl()}${this.apiPath}`;
     return this.http.post(url, resource).pipe(
       catchError(this.handleError),
       map(this.jsonDataToResource)
-    )
+    );
   }
 
   update(resource: T): Observable<T> {
@@ -57,7 +57,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
     return this.http.put(url, resource).pipe(
       catchError(this.handleError),
       map(() => resource)
-    )
+    );
   }
 
   delete(id: number): Observable<any> {
@@ -65,7 +65,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
     return this.http.delete(url).pipe(
       catchError(this.handleError),
       map(() => null)
-    )
+    );
   }
 
   // Metodos Protegidos
@@ -86,10 +86,10 @@ export abstract class BaseResourceService<T extends BaseResourceModel>{
   }
 
   protected handleError(error: Response<T[]>): Observable<any> {
-    console.log("ERRO NA REQUISIÇÃO => ", error);
-    //ERROR UNAUTHORIZED
-    if(error.status == '401'){
-      //REDIRECIONA PARA A TELA DE LOGIN
+    console.log('ERRO NA REQUISIÇÃO => ', error);
+    // ERROR UNAUTHORIZED
+    if (error.status === '401') {
+      // REDIRECIONA PARA A TELA DE LOGIN
      window.location.replace('/auth/login');
     }
     return throwError(error);

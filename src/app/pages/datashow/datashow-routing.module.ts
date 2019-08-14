@@ -1,13 +1,14 @@
-import { ProfessorListComponent } from './professor-list/professor-list.component';
+import { DatashowListComponent } from './datashow-list/datashow-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+
 const routes: Routes = [
-  {path: '', component: ProfessorListComponent}
+  { path: '', component: DatashowListComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProfessorRoutingModule { }
+export class DatashowRoutingModule { }
