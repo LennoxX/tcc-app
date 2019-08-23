@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  display: boolean;
   title = 'locacao-app';
+
+  constructor(private activatedRoute: ActivatedRoute) {
+
+
+  }
 }
