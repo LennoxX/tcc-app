@@ -17,7 +17,7 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule,
     CommonModule,
     ToastrModule.forRoot(),
-    TableModule
+    TableModule,
   ],
   exports: [HeaderNavComponent, SideMenuComponent, BreadCrumbComponent, TableModule, HeaderComponent, FooterComponent]
 })
