@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Usuario } from './../../../pages/usuarios/shared/usuario.model';
+import { UserService } from './../../../core/services/user.service';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,10 +8,15 @@ import { Router } from '@angular/router';
   templateUrl: './header-nav.component.html',
   styleUrls: ['./header-nav.component.css']
 })
-export class HeaderNavComponent implements OnInit {
-  constructor(private router: Router) {}
+export class HeaderNavComponent implements OnInit, AfterContentChecked {
+  usuario: Usuario
+  constructor(private router: Router, public userService: UserService) {}
 
   ngOnInit() {}
+
+  ngAfterContentChecked() {
+    this.usuario = this.userService.getInstance();
+  }
 
   logout() {
     sessionStorage.removeItem('token');
