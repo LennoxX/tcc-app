@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-header-nav",
-  templateUrl: "./header-nav.component.html",
-  styleUrls: ["./header-nav.component.css"]
+  selector: 'app-header-nav',
+  templateUrl: './header-nav.component.html',
+  styleUrls: ['./header-nav.component.css']
 })
 export class HeaderNavComponent implements OnInit {
   constructor(private router: Router) {}
@@ -12,7 +12,7 @@ export class HeaderNavComponent implements OnInit {
   ngOnInit() {}
 
   logout() {
-    localStorage.removeItem("token");
-    this.router.navigateByUrl("auth/login");
+    sessionStorage.removeItem('token');
+    this.router.navigateByUrl('auth/login');
   }
 }

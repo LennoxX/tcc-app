@@ -1,37 +1,34 @@
-<body class="hold-transition skin-blue sidebar-mini">
-  <app-header></app-header>
-  <app-side-menu></app-side-menu>
+<app-header></app-header>
+<app-side-menu></app-side-menu>
 
-  <div class="wrapper">
-    <div class="content-wrapper">
-      <div class="content-header">
-        <app-bread-crumb [items]="[{text: 'Professores'}]"></app-bread-crumb>
-        <h1>
-          Lista de Professores
-        </h1>
-        <div>
-          <br />
-          <p-table styleClass="table table-bordered table-hover" [value]="cars">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Vin</th>
-                <th>Year</th>
-                <th>Brand</th>
-                <th>Color</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-car>
-              <tr>
-                <td>{{car.vin}}</td>
-                <td>{{car.year}}</td>
-                <td>{{car.brand}}</td>
-                <td>{{car.color}}</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-      </div>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <app-bread-crumb [items]="[{text: 'Professores'}]"></app-bread-crumb>
+      <h1>
+        Lista de Professores
+      </h1>
+    </div>
+    <div class="content container-fluid">
+      <p-table styleClass="table table-bordered table-hover" [value]="cars">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Vin</th>
+            <th>Year</th>
+            <th>Brand</th>
+            <th>Color</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+          <tr>
+            <td>{{car.vin}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.brand}}</td>
+            <td>{{car.color}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
-  <app-footer></app-footer>
-</body>
+</div>
+<app-footer></app-footer>
