@@ -24,11 +24,12 @@ export class AdminGuard implements CanActivate {
     
     if (this.tokenService.getToken()) {
       this.http.post(`${this.configService.getAuthUrl()}valid/token`, this.tokenService.getToken()).subscribe((res) => {
-        this.usuario = this.userService.getInstance();
-        if(this.usuario.niveis.indexOf("ADMIN") != -1){
-
-        }
-        return true;
+        this.userService.getByToken().subscribe((user) => {
+          this.usuario = user
+          if(this.usuario.niveis.indexOf("ADMIN") != -1){
+            return true;
+          }
+        });
       },
         (err) => {
           this.router.navigateByUrl('/auth/login');
