@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { BaseResourceModel } from '../../models/base.resource.model';
 import { BaseResourceService } from '../../services/base.resource.service';
-import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
@@ -22,8 +22,8 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected formBuilder: FormBuilder;
 
   constructor(
+    protected messageService: MessageService,
     protected injector: Injector,
-    private toastr: ToastrService,
     public resource: T,
     protected resourceService: BaseResourceService<T>,
     protected jsonDataToResourceFn: (jsonData) => T,
@@ -33,9 +33,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     this.router = this.injector.get(Router);
     this.formBuilder = this.injector.get(FormBuilder);
 
-
   }
-
 
   ngOnInit() {
     this.setCurrentAction();
@@ -120,30 +118,32 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForSuccess(resource: T) {
-
-    this.toastr.success('Solicitação efetuada com sucesso!');
-
-    const baseComponentPath: string = this.route.snapshot.url[0].path;
-
-    this.router.navigateByUrl(baseComponentPath, { skipLocationChange: true }).then(
-      () => this.router.navigate([baseComponentPath, resource.id, 'edit'])
-
-    );
+    const baseComponentPath: string = this.route.parent.snapshot.url[0].path;
+    this.router.navigateByUrl(baseComponentPath).then(
+      () => this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Solicitação Processada com Sucesso!'
+      }));
   }
 
 
   protected actionsForError(error) {
-    this.toastr.error('Ocorreu um erro ao processar a sua solicitação');
 
+    const baseComponentPath: string = this.route.parent.snapshot.url[0].path;
     this.submittingForm = false;
 
     if (error.status === 422) {
       this.serverErrorMessages = JSON.parse(error._body).errors;
     } else {
-      this.serverErrorMessages = ['Falha na comunicação com o servidor!'];
+      this.router.navigateByUrl(baseComponentPath).then(
+        () => this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: error
+        }));
     }
   }
-
 
   protected abstract buildResourceForm(): void;
 

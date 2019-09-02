@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { TableModule } from 'primeng/table';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -18,7 +20,20 @@ import { FooterComponent } from './footer/footer.component';
     CommonModule,
     ToastrModule.forRoot(),
     TableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule,
   ],
-  exports: [HeaderNavComponent, SideMenuComponent, BreadCrumbComponent, TableModule, HeaderComponent, FooterComponent]
+  exports: [
+    HeaderNavComponent,
+    SideMenuComponent,
+    BreadCrumbComponent,
+    TableModule,
+    HeaderComponent,
+    FooterComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule,
+  ]
 })
 export class SharedModule { }
