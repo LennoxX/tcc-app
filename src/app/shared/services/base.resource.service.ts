@@ -53,7 +53,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   update(resource: T): Observable<T> {
-    const url = `${this.configService.getApiUrl()}${this.apiPath}/${resource.id}`;
+    const url = `${this.configService.getApiUrl()}${this.apiPath}`;
     return this.http.put(url, resource).pipe(
       catchError(this.handleError),
       map(() => resource)

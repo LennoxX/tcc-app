@@ -66,7 +66,6 @@ export class ProfessorFormComponent extends BaseResourceFormComponent<Professor>
                 this.resource.curso = item;
               }
             });
-            console.log(this.resource);
             this.resourceForm.patchValue(this.resource);
 
           },
