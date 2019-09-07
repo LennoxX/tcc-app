@@ -14,6 +14,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/guards/auth.interceptor';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/components/common/messageservice';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,13 +29,15 @@ import { MessageService } from 'primeng/components/common/messageservice';
     SharedModule,
     SecurityModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   providers: [
     AuthGuard,
     ConfigService,
     AuthService,
     MessageService,
+    ConfirmationService,
     TokenService,
     {
       provide: HTTP_INTERCEPTORS,

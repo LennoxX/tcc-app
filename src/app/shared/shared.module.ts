@@ -10,6 +10,9 @@ import { TableModule } from 'primeng/table';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -23,6 +26,9 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    RadioButtonModule,
+    FieldsetModule,
+    TooltipModule,
   ],
   exports: [
     HeaderNavComponent,
@@ -34,6 +40,9 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    RadioButtonModule,
+    FieldsetModule,
+    TooltipModule,
   ]
 })
 export class SharedModule { }

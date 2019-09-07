@@ -39,6 +39,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     this.setCurrentAction();
     this.buildResourceForm();
     this.loadResource();
+
   }
 
   ngAfterContentChecked() {
@@ -109,7 +110,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   protected updateResource() {
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
-
     this.resourceService.update(resource).subscribe(
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)

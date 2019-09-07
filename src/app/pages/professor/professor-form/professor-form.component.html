@@ -11,7 +11,7 @@
     </div>
     <div class="content container-fluid">
 
-      <form [formGroup]="resourceForm" (submit)="submitForm()">
+      <form [formGroup]="resourceForm" >
 
         <div class="box box-success">
           <div class="box-header with-border">
@@ -39,7 +39,7 @@
 
           </div>
           <div class="box-footer">
-            <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid" type="submit">Salvar</button>
+            <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid" (click)="confirm()">Salvar</button>
           </div>
         </div>
       </form>

@@ -1,4 +1,4 @@
-import { Curso } from './../shared/models/curso.model';
+
 import { Professor } from './../shared/models/professor.model';
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'src/app/shared/models/page';
@@ -18,7 +18,7 @@ export class ProfessorListComponent implements OnInit {
   pageIndex: number;
   pages: Page<Professor> = new Page<Professor>();
   filters = new Map();
-  cursos: Curso[] = new Array();
+  cursos = new Array();
 
 
   professores: Professor[] = new Array();
@@ -65,7 +65,7 @@ export class ProfessorListComponent implements OnInit {
     // NO CASO DE LIMPAR A SELEÇÃO
     if (
       this.filters.get('curso').filtro == null ||
-      this.filters.get('curso').filtro == ''
+      this.filters.get('curso').filtro === ''
     ) {
       this.load(0, this.filters.get('matricula').filtro, this.filters.get('nome').filtro, '');
     } else {

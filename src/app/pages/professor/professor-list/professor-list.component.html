@@ -39,7 +39,7 @@
             <td>{{ professor.nome }}</td>
             <td>{{ exibirCurso(professor.curso) }}</td>
             <td style="text-align: center">
-              <a [routerLink]="[professor.id, 'edit']" class="btn btn-info btn-sm mr-2"><i
+              <a [routerLink]="[professor.id, 'edit']" pTooltip="Editar" tooltipPosition="top"  class="btn btn-info btn-sm mr-2"><i
                   class="pi pi-search"></i></a>
             </td>
           </tr>
