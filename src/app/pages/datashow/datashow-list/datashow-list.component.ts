@@ -1,8 +1,10 @@
+import { MessageService } from 'primeng/components/common/messageservice';
 import { Datashow } from './../shared/models/datashow.model';
 import { DatashowService } from './../shared/services/datashow.service';
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'src/app/shared/models/page';
 import { Professor } from '../../professor/shared/models/professor.model';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-datashow-list',
@@ -25,7 +27,7 @@ export class DatashowListComponent implements OnInit {
 
 
 
-  constructor(private datashowService: DatashowService) { }
+  constructor(private datashowService: DatashowService, private confirmationService: ConfirmationService, protected messageService: MessageService) { }
 
 
 
@@ -98,6 +100,50 @@ export class DatashowListComponent implements OnInit {
     return this.datashowStatus.filter(item => {
       return item.value === curso;
     })[0].label;
+  }
+
+  setManutencao(datashow: Datashow) {
+    this.confirmationService.confirm({
+      message: 'Você tem certeza que deseja executar esta ação? ',
+      accept: () => {
+        datashow.status = 'MANUTENCAO';
+        this.datashowService.update(datashow).subscribe((res) => {
+          this.actionsForSuccess();
+        }, (err) => {
+          this.actionsForError(err);
+        });
+      }
+    });
+  }
+
+  setDisponivel(datashow: Datashow) {
+    this.confirmationService.confirm({
+      message: 'Você tem certeza que deseja executar esta ação? ',
+      accept: () => {
+        datashow.status = 'DISPONIVEL';
+        this.datashowService.update(datashow).subscribe((res) => {
+          this.actionsForSuccess();
+        }, (err) => {
+          this.actionsForError(err);
+        });
+      }
+    });
+  }
+
+  protected actionsForSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Solicitação Processada com Sucesso!'
+    });
+  }
+
+  protected actionsForError(error) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: error
+    });
   }
 
 }

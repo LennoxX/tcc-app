@@ -15,17 +15,17 @@
         [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [responsive]="true">
         <ng-template pTemplate="header">
           <tr class="d-flex">
-            <th class="col-xs-3" style="text-align: center">Identificação</th>
-            <th class="col-xs-3" style="text-align: center">Número do Tombamento</th>
-            <th class="col-xs-2" style="text-align: center">Possui HDMI</th>
-            <th class="col-xs-2" style="text-align: center">Possui VGA</th>
-            <th class="col-md-3" style="text-align: center">Status</th>
-            <th class="col-md-2" style="text-align: center">Ações</th>
+            <th class="col-sm-3" style="text-align: center">Identificação</th>
+            <th class="col-sm-3" style="text-align: center">Número do Tombamento</th>
+            <th class="col-sm-2" style="text-align: center">Possui HDMI</th>
+            <th class="col-sm-2" style="text-align: center">Possui VGA</th>
+            <th class="col-sm-3" style="text-align: center">Status</th>
+            <th class="col-sm-2" style="text-align: center">Ações</th>
           </tr>
           <tr class="d-flex">
-            <th class="col-xs-3"><input style="width:100%" class="form-control" pInputText
+            <th class="col-sm-3"><input style="width:100%" class="form-control" pInputText
                 [(ngModel)]="filters.get('identificacao').filtro" (input)="pesquisar()" /></th>
-            <th class="col-xs-2"><input style="width:100%" class="form-control" pInputText
+            <th class="col-sm-2"><input style="width:100%" class="form-control" pInputText
                 [(ngModel)]="filters.get('numTombamento').filtro" (input)="pesquisar()" /></th>
             <th>
 
@@ -50,8 +50,8 @@
             <td>{{ exibirStatus(datashow?.status) }}</td>
             <td style="text-align: center;">
               <a [routerLink]="[datashow.id, 'edit']"  pTooltip="Editar" tooltipPosition="top" class="btn btn-info btn-sm"><i class="pi pi-search"></i></a>
-              <a *ngIf="datashow.status == 'DISPONIVEL'" pTooltip="Manutenção" tooltipPosition="top" [routerLink]="[datashow.id, 'edit']" class="btn btn-warning btn-sm" style="margin-left: 5px"><i class="pi pi-sliders-h"></i></a>
-              <a *ngIf="datashow.status == 'MANUTENCAO'" pTooltip="Disponibilizar" tooltipPosition="top" [routerLink]="[datashow.id, 'edit']" class="btn btn-success btn-sm" style="margin-left: 5px"><i class="pi pi-check-circle"></i></a>
+              <a *ngIf="datashow.status == 'DISPONIVEL'" pTooltip="Manutenção" tooltipPosition="top" (click)="setManutencao(datashow)" class="btn btn-warning btn-sm" style="margin-left: 5px"><i class="pi pi-sliders-h"></i></a>
+              <a *ngIf="datashow.status == 'MANUTENCAO'" pTooltip="Disponibilizar" tooltipPosition="top" (click)="setDisponivel(datashow)" class="btn btn-success btn-sm" style="margin-left: 5px"><i class="pi pi-check-circle"></i></a>
             </td>
           </tr>
         </ng-template>
