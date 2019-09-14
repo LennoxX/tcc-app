@@ -11,7 +11,7 @@
     </div>
     <div class="content container-fluid">
 
-      <form [formGroup]="resourceForm" >
+      <form [formGroup]="resourceForm">
 
         <div class="box box-success">
           <div class="box-header with-border">
@@ -21,25 +21,30 @@
             <div class="form-group has-feedback row">
 
               <div class="col-sm-4">
-                <label>Nome</label>
-                <input formControlName="nome" type="text" required class="form-control" placeholder="Nome">
+                <p-fieldset legend="Nome">
+                  <input formControlName="nome" type="text" required class="form-control" placeholder="Nome">
+                </p-fieldset>
               </div>
 
               <div class="col-sm-4">
-                <label>Matrícula</label>
-                <input formControlName="matricula" type="text" required class="form-control" placeholder="Matrícula">
+                <p-fieldset legend="Matrícula">
+                  <input formControlName="matricula" type="text" required class="form-control" placeholder="Matrícula">
+                </p-fieldset>
               </div>
 
               <div class="col-sm-4">
-                <label>Curso</label><br />
-                <p-dropdown formControlName="curso" [options]="cursos" optionLabel="label" [style]="{'width':'100%'}"
-                  required placeholder="Selecione um Curso"></p-dropdown>
+                <p-fieldset legend="Curso">
+                  <p-dropdown formControlName="curso" [options]="cursos" optionLabel="label" [style]="{'width':'100%'}"
+                    required placeholder="Selecione um Curso"></p-dropdown>
+                </p-fieldset>
               </div>
             </div>
 
           </div>
           <div class="box-footer">
-            <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid" (click)="confirm()">Salvar</button>
+            <button class="btn btn-danger pull-left" [routerLink]="['/professor']">Cancelar</button>
+            <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid"
+              (click)="confirm()">Salvar</button>
           </div>
         </div>
       </form>

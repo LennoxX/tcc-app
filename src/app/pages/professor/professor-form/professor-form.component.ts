@@ -18,9 +18,9 @@ export class ProfessorFormComponent extends BaseResourceFormComponent<Professor>
   cursos: any[] = new Array();
 
   constructor(protected messageService: MessageService,
-    protected injector: Injector,
-    protected professorService: ProfessorService,
-    private confirmationService: ConfirmationService) {
+              protected injector: Injector,
+              protected professorService: ProfessorService,
+              private confirmationService: ConfirmationService) {
     super(messageService, injector, new Professor(), professorService, Professor.fromJson);
   }
 

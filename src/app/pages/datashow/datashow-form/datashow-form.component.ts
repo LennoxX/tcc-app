@@ -17,9 +17,9 @@ export class DatashowFormComponent extends BaseResourceFormComponent<Datashow> i
   datashowStatus = new Array();
 
   constructor(protected messageService: MessageService,
-    protected injector: Injector,
-    protected datashowService: DatashowService,
-    private confirmationService: ConfirmationService) {
+              protected injector: Injector,
+              protected datashowService: DatashowService,
+              private confirmationService: ConfirmationService) {
     super(messageService, injector, new Datashow(), datashowService, Datashow.fromJson);
   }
 
