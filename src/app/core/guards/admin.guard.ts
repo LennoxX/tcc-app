@@ -16,18 +16,25 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 export class AdminGuard implements CanActivate {
 
   usuario: Usuario = new Usuario();
-  constructor(private router: Router, private http: HttpClient, private configService: ConfigService, private tokenService: TokenService, private userService: UserService) {
+  constructor(private router: Router,
+              private http: HttpClient,
+              private configService: ConfigService,
+              private tokenService: TokenService,
+              private userService: UserService) {
 
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    
+
     if (this.tokenService.getToken()) {
       this.http.post(`${this.configService.getAuthUrl()}valid/token`, this.tokenService.getToken()).subscribe((res) => {
         this.userService.getByToken().subscribe((user) => {
-          this.usuario = user
-          if(this.usuario.niveis.indexOf("ADMIN") != -1){
+          this.usuario = user;
+          if (this.usuario.niveis.indexOf('ADMIN') !== -1) {
             return true;
+          } else {
+            this.router.navigateByUrl('/error/forbidden');
+            return false;
           }
         });
       },
@@ -36,7 +43,6 @@ export class AdminGuard implements CanActivate {
           this.tokenService.deleteToken();
           return false;
         });
-      return true;
     } else {
       this.router.navigateByUrl('/auth/login');
       return false;

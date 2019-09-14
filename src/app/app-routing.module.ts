@@ -10,7 +10,9 @@ const routes: Routes = [
   { path: 'datashow', loadChildren: './pages/datashow/datashow.module#DatashowModule', canActivate: [AuthGuard] },
   { path: 'usuario', loadChildren: './pages/usuarios/usuarios.module#UsuariosModule', canActivate: [AdminGuard] },
   { path: 'locacoes', loadChildren: './pages/locacoes/locacoes.module#LocacoesModule', canActivate: [AuthGuard] },
-  { path: 'auth', loadChildren: './pages/security/security.module#SecurityModule'},
+  { path: 'auth', loadChildren: './pages/security/security.module#SecurityModule' },
+  { path: 'error', loadChildren: './core/pages/errors/errors.module#ErrorsModule' },
+  { path: '**', redirectTo: 'error/404' },
 ];
 
 @NgModule({
