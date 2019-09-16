@@ -1,4 +1,4 @@
-import { Usuario } from './../../../pages/usuarios/shared/usuario.model';
+import { Usuario } from '../../../pages/usuarios/shared/models/usuario.model';
 import { UserService } from './../../../core/services/user.service';
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';

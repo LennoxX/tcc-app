@@ -27,8 +27,8 @@
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-              <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+              <div *ngIf="usuario != null " class="pull-left">
+                <a [routerLink]="['/usuario', usuario?.id, 'edit']" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
                 <a (click)="logout()" class="btn btn-default btn-flat">Sign out</a>

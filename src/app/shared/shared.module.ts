@@ -13,6 +13,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TooltipModule } from 'primeng/tooltip';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {SelectButtonModule} from 'primeng/selectbutton';
+
 
 
 
@@ -29,6 +32,9 @@ import { TooltipModule } from 'primeng/tooltip';
     RadioButtonModule,
     FieldsetModule,
     TooltipModule,
+    InputSwitchModule,
+    SelectButtonModule,
+
   ],
   exports: [
     HeaderNavComponent,
@@ -43,6 +49,8 @@ import { TooltipModule } from 'primeng/tooltip';
     RadioButtonModule,
     FieldsetModule,
     TooltipModule,
+    InputSwitchModule,
+    SelectButtonModule
   ]
 })
 export class SharedModule { }

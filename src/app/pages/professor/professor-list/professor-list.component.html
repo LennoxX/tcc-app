@@ -15,15 +15,15 @@
         [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [responsive]="true">
         <ng-template pTemplate="header">
           <tr class="d-flex">
-            <th class="col-xs-3" style="text-align: center">Matrícula</th>
-            <th class="col-xs-5" style="text-align: center">Nome</th>
-            <th class="col-xs-3" style="text-align: center">Curso</th>
-            <th class="col-md-1" style="text-align: center">Ações</th>
+            <th class="col-sm-3" style="text-align: center">Matrícula</th>
+            <th class="col-sm-5" style="text-align: center">Nome</th>
+            <th class="col-sm-3" style="text-align: center">Curso</th>
+            <th class="col-sm-1" style="text-align: center">Ações</th>
           </tr>
           <tr class="d-flex">
-            <th class="col-xs-3"><input style="width:100%" class="form-control" pInputText [(ngModel)]="filters.get('matricula').filtro"
+            <th class="col-sm-3"><input style="width:100%" class="form-control" pInputText [(ngModel)]="filters.get('matricula').filtro"
                 (input)="pesquisar()" /></th>
-            <th class="col-xs-5"><input style="width:100%" class="form-control" pInputText [(ngModel)]="filters.get('nome').filtro"
+            <th class="col-sm-5"><input style="width:100%" class="form-control" pInputText [(ngModel)]="filters.get('nome').filtro"
                 (input)="pesquisar()" /></th>
             <th>
               <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width':'100%'}" filter="true"

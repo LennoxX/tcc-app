@@ -1,5 +1,5 @@
 import { UserService } from "./../../../core/services/user.service";
-import { Usuario } from "./../../../pages/usuarios/shared/usuario.model";
+import { Usuario } from "../../../pages/usuarios/shared/models/usuario.model";
 import { Component, OnInit, AfterContentChecked } from "@angular/core";
 
 @Component({

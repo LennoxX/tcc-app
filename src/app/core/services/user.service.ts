@@ -1,5 +1,5 @@
 import { BaseResourceService } from "src/app/shared/services/base.resource.service";
-import { Usuario } from "./../../pages/usuarios/shared/usuario.model";
+import { Usuario } from "../../pages/usuarios/shared/models/usuario.model";
 import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
