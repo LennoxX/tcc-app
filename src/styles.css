@@ -37,3 +37,20 @@ p-dropdown.ng-invalid:not(form) {
   border-left: 0 none;
 }
 
+.radioClear.ng-invalid:not(form) > div {
+  border-left: 0 none /* red */
+}
+
+p-listbox.ng-invalid:not(form) > div {
+  border-left: 5px solid #a94442; /* red */
+}
+
+p-listbox.ng-valid[required],
+p-listbox.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+p-listbox.ng-invalid:not(form) {
+  border-left: 0 none;
+}
+

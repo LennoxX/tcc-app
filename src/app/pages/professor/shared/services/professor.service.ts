@@ -32,4 +32,12 @@ export class ProfessorService extends BaseResourceService<Professor> {
     );
   }
 
+  getAllElegiveis(): Observable<Professor[]> {
+    const url = `${this.configService.getApiUrl()}${this.apiPath}`;
+    return this.http.get(url + '/elegiveis').pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToResources)
+    );
+  }
+
 }

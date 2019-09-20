@@ -15,6 +15,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { TooltipModule } from 'primeng/tooltip';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {ListboxModule} from 'primeng/listbox';
 
 
 
@@ -34,7 +35,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     TooltipModule,
     InputSwitchModule,
     SelectButtonModule,
-
+    ListboxModule,
   ],
   exports: [
     HeaderNavComponent,
@@ -50,7 +51,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     FieldsetModule,
     TooltipModule,
     InputSwitchModule,
-    SelectButtonModule
+    SelectButtonModule,
+    ListboxModule,
   ]
 })
 export class SharedModule { }

@@ -10,7 +10,37 @@
         </div>
         <div class="content container-fluid">
 
-            <p>locacoes-form works!</p>
+            <form [formGroup]="resourceForm">
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Informações da Locação</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-2">
+
+                                <p-listbox [style]="{'width':'100%'}" [options]="professores"
+                                    formControlName="professor" checkbox="checkbox" filter="filter" optionLabel="nome">
+                                    <p-header>
+                                        <i class="fa fa-user"></i>
+                                        Professor
+                                    </p-header>
+                                </p-listbox>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-danger pull-left" [routerLink]="['/datashow']">Cancelar</button>
+                        <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid"
+                            (click)="confirm()">Salvar</button>
+                    </div>
+                </div>
+
+            </form>
 
         </div>
     </div>

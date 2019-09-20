@@ -7,6 +7,7 @@ import { LocacoesListComponent } from './locacoes-list/locacoes-list.component';
 const routes: Routes = [
   {path: '', component: LocacoesListComponent},
   {path: ':id/edit', component: LocacoesFormComponent},
+  {path: 'new', component: LocacoesFormComponent},
 ];
 
 @NgModule({
