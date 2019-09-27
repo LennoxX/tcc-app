@@ -15,10 +15,10 @@ export class DatashowService extends BaseResourceService<Datashow> {
   }
 
   getByParameters(page: number,
-                  size: number,
-                  identificacao: string,
-                  numTombamento: string,
-                  status: string): Observable<Page<Datashow>> {
+    size: number,
+    identificacao: string,
+    numTombamento: string,
+    status: string): Observable<Page<Datashow>> {
     const url = `${this.configService.getApiUrl()}${this.apiPath}/${page}/${size}/parameters`;
     return this.http.get(url, {
       params: {
@@ -30,5 +30,15 @@ export class DatashowService extends BaseResourceService<Datashow> {
       catchError(this.handleError),
       map(this.jsonDataPagesToResources)
     );
+  }
+
+  getAllDisponiveis() {
+
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/disponiveis`;
+    return this.http.get(url).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToResources)
+    );
+
   }
 }

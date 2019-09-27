@@ -27,7 +27,9 @@ export class DatashowListComponent implements OnInit {
 
 
 
-  constructor(private datashowService: DatashowService, private confirmationService: ConfirmationService, protected messageService: MessageService) { }
+  constructor(private datashowService: DatashowService,
+              private confirmationService: ConfirmationService,
+              protected messageService: MessageService) { }
 
 
 

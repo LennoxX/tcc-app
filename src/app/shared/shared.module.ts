@@ -1,3 +1,4 @@
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -36,6 +37,9 @@ import {ListboxModule} from 'primeng/listbox';
     InputSwitchModule,
     SelectButtonModule,
     ListboxModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.circleSwish
+    })
   ],
   exports: [
     HeaderNavComponent,
@@ -53,6 +57,7 @@ import {ListboxModule} from 'primeng/listbox';
     InputSwitchModule,
     SelectButtonModule,
     ListboxModule,
+    NgxLoadingModule
   ]
 })
 export class SharedModule { }

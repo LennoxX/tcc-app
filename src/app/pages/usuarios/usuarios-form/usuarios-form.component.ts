@@ -15,12 +15,13 @@ import { UserService } from 'src/app/core/services/user.service';
 export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> implements OnInit {
   usuarioLogado: Usuario;
   niveis = new Array();
+  updatePass: FormGroup;
 
   constructor(protected messageService: MessageService,
-    protected injector: Injector,
-    protected usuarioService: UsuarioService,
-    private userService: UserService,
-    private confirmationService: ConfirmationService) {
+              protected injector: Injector,
+              protected usuarioService: UsuarioService,
+              private userService: UserService,
+              private confirmationService: ConfirmationService) {
     super(messageService, injector, new Usuario(), usuarioService, Usuario.fromJson);
 
   }
@@ -32,6 +33,11 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
       this.resourceForm.controls.confirmPassword.setValidators([]);
     }
     this.usuarioLogado = this.userService.getInstance();
+    this.updatePass = this.formBuilder.group({
+      senhaAtual: [null, [Validators.required, Validators.minLength(5)]],
+      novaSenha: [null, [Validators.required, Validators.minLength(5)]],
+      confirmNovaSenha: [null, [Validators.required, Validators.minLength(5)]],
+    });
   }
   protected buildResourceForm(): void {
     this.resourceForm = this.formBuilder.group({
@@ -71,14 +77,13 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
 
   checkPassword(form: FormGroup, senha: string, confirmSenha: string) {
-    let varSenha = form.controls[senha].value;
-    let varConfirmSenha = form.controls[confirmSenha].value;
-    if (varSenha != varConfirmSenha) {
-      form.controls['confirmPassword'].setErrors({ invalid: true });
+    const varSenha = form.controls[senha].value;
+    const varConfirmSenha = form.controls[confirmSenha].value;
+    if (varSenha !== varConfirmSenha) {
+      form.controls[confirmSenha].setErrors({ invalid: true });
       return true;
     } else {
-      form.controls['confirmPassword'].valid;
-      form.valid;
+      form.controls[confirmSenha].setErrors({ invalid: false });
       return false;
     }
   }
@@ -96,8 +101,8 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
     resource.niveis = new Array();
-    resource.niveis.push(this.resourceForm.controls['niveis'].value);
-    console.log(this.resource)
+    resource.niveis.push(this.resourceForm.controls.niveis.value);
+    console.log(this.resource);
 
     this.resourceService.create(resource).subscribe(
       () => this.actionsForSuccess(resource),
@@ -116,7 +121,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   exibirInfoAdmin() {
     if (this.userService.getInstance() != null) {
-      return this.userService.getInstance().niveis['ADMIN'] != -1;
+      return this.userService.getInstance().niveis.indexOf('ADMIN') !== -1;
     }
 
   }

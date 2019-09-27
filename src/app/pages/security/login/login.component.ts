@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   builder: FormBuilder = new FormBuilder();
   loginRequest: LoginRequest = new LoginRequest();
   boolean = true;
+  loading = false;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -35,14 +36,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     this.loginRequest = Object.assign(new LoginRequest(), this.loginForm.value);
     this.authService.authenticate(this.loginRequest).subscribe(
       (response: any) => {
         sessionStorage.setItem("token", response.accessToken);
+        this.loading = false;
         this.userService.setUsuarioLogado(response.usuario)
         this.router.navigateByUrl("home");
       },
       err => {
+        this.loading = false;
         this.messageService.add({
           severity: "error",
           summary: "Falha no Login",

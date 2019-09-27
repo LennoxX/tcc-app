@@ -57,7 +57,7 @@
             <div *ngIf="currentAction == 'new'" class="form-group has-feedback row">
               <div class="col-sm-4">
                 <p-fieldset legend="Senha">
-                  <input  class="form-control" type="password" placeholder="Senha (Mínimo 5 caracteres)"
+                  <input class="form-control" type="password" placeholder="Senha (Mínimo 5 caracteres)"
                     formControlName="password" />
                 </p-fieldset>
                 <div *ngIf="resourceForm.controls['password'].touched && resourceForm.controls['password'].invalid"
@@ -71,7 +71,8 @@
                   <input class="form-control" placeholder="Confirme a Senha (Mínimo 5 caracteres)" type="password"
                     formControlName="confirmPassword" />
                 </p-fieldset>
-                <div *ngIf="resourceForm.controls['confirmPassword'].touched && checkPassword(resourceForm, 'password', 'confirmPassword')"
+                <div
+                  *ngIf="resourceForm.controls['confirmPassword'].touched && checkPassword(resourceForm, 'password', 'confirmPassword')"
                   class="help-block invalid-feedback" style="color:#a94442">
                   <div>Senhas não coincidem</div>
                 </div>
@@ -112,6 +113,61 @@
               (click)="confirm()">Salvar</button>
           </div>
         </div>
+      </form>
+
+      <form [formGroup]="updatePass">
+        <div *ngIf="currentAction == 'edit'" class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">Alterar Senha</h3>
+          </div>
+          <div class="box-body">
+
+            <div class="form-group has-feedback row">
+              <div class="col-sm-4">
+                <p-fieldset legend="Senha Atual">
+                  <input class="form-control" type="password" placeholder="Senha (Mínimo 5 caracteres)"
+                    formControlName="senhaAtual" />
+                </p-fieldset>
+                <div *ngIf="updatePass.controls['senhaAtual'].touched && updatePass.controls['senhaAtual'].invalid"
+                  class="help-block invalid-feedback" style="color:#a94442">
+                  <div *ngIf="updatePass.controls['senhaAtual'].errors.required">Senha Obrigatória</div>
+                  <div *ngIf="updatePass.controls['senhaAtual'].errors.minlength">Mínimo 5 caracteres</div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <p-fieldset legend="Nova Senha">
+                  <input class="form-control" placeholder="Confirme a Senha (Mínimo 5 caracteres)" type="password"
+                    formControlName="novaSenha" />
+                </p-fieldset>
+                <div *ngIf="updatePass.controls['novaSenha'].touched && updatePass.controls['novaSenha'].invalid"
+                  class="help-block invalid-feedback" style="color:#a94442">
+                  <div *ngIf="checkPassword(updatePass, 'novaSenha', 'confirmNovaSenha')">Senhas não coincidem</div>
+                  <div *ngIf="updatePass.controls['novaSenha'].errors?.minlength">Mínimo 5 caracteres</div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <p-fieldset legend="Confirmar Nova Senha">
+                  <input class="form-control" placeholder="Confirme a Senha (Mínimo 5 caracteres)" type="password"
+                    formControlName="confirmNovaSenha" />
+                </p-fieldset>
+                <div
+                  *ngIf="updatePass.controls['confirmNovaSenha'].touched && updatePass.controls['confirmNovaSenha'].invalid"
+                  class="help-block invalid-feedback" style="color:#a94442">
+                  <div *ngIf="checkPassword(updatePass, 'novaSenha', 'confirmNovaSenha')">Senhas não coincidem</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box-footer">
+            <button class="btn btn-danger pull-left" [routerLink]="['/home']">Cancelar</button>
+            <button class="btn btn-success pull-right" [disabled]="submittingForm || updatePass.invalid"
+              (click)="confirm()">Alterar Senha</button>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>

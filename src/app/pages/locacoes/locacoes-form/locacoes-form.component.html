@@ -1,49 +1,82 @@
 <app-header></app-header>
 <app-side-menu></app-side-menu>
 <div class="wrapper">
-    <div class="content-wrapper">
-        <div class="content-header">
-            <app-bread-crumb [items]="[{text: 'Locações', link: '/locacoes'}, {text: 'Formulário'}]"></app-bread-crumb>
-            <h1>
-                FORM
-            </h1>
-        </div>
-        <div class="content container-fluid">
-
-            <form [formGroup]="resourceForm">
-
-                <div class="box box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Informações da Locação</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-row">
-                            <div class="form-group col-sm-2">
-
-                                <p-listbox [style]="{'width':'100%'}" [options]="professores"
-                                    formControlName="professor" checkbox="checkbox" filter="filter" optionLabel="nome">
-                                    <p-header>
-                                        <i class="fa fa-user"></i>
-                                        Professor
-                                    </p-header>
-                                </p-listbox>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <button class="btn btn-danger pull-left" [routerLink]="['/datashow']">Cancelar</button>
-                        <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid"
-                            (click)="confirm()">Salvar</button>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
+  <div class="content-wrapper">
+    <div class="content-header">
+      <app-bread-crumb [items]="[{text: 'Locações', link: '/locacoes'}, {text: 'Formulário'}]"></app-bread-crumb>
+      <h1>
+        {{pageTitle}}
+      </h1>
     </div>
+    <div class="content container-fluid">
+      <form [formGroup]="resourceForm">
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">Informações da Locação</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-sm-4">
+                <p-listbox (onChange)="setProfessor($event)" [style]="{'width':'100%'}"
+                  [listStyle]="{'max-height':'150px'}" [options]="professores" formControlName="professor"
+                  checkbox="checkbox" filter="filter" optionLabel="nome">
+                  <p-header>
+                    <i class="fa fa-user"></i>
+                    Professor
+                  </p-header>
+                </p-listbox>
+              </div>
+              <div class="col-sm-4">
+                <label>Matrícula</label>
+                <input formControlName="matricula"
+                  [value]="professorSelecionado.matricula != null ?  professorSelecionado.matricula : ''" type="text"
+                  class="form-control">
+              </div>
+              <div class="col-sm-4">
+                <label>Curso</label>
+                <input formControlName="curso"
+                  [value]="professorSelecionado.curso != null ?  professorSelecionado.curso : ''" type="text"
+                  class="form-control">
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-4">
+                <p-listbox (onChange)="setDatashow($event)" [style]="{'width':'100%'}"
+                  [listStyle]="{'max-height':'250px'}" [options]="datashows" formControlName="datashow"
+                  checkbox="checkbox" filter="filter" optionLabel="identificacao">
+                  <p-header>
+                    <i class="fa fa-desktop"></i>
+                    Datashow
+                  </p-header>
+                </p-listbox>
+              </div>
+              <div class="col-sm-4">
+                <label>Nº Tombamento</label>
+                <input formControlName="numTombamento"
+                  [value]="datashowSelecionado.numTombamento != null ?  datashowSelecionado.numTombamento : ''"
+                  type="text" class="form-control">
+              </div>
+              <div class="col-sm-2">
+                <label>Possui HDMI</label>
+                <input formControlName="hdmi" [value]="possuiEntrada('hdmi')" type="text" class="form-control">
+              </div>
+              <div class="col-sm-2">
+                <label>Possui VGA</label>
+                <input formControlName="vga" [value]="possuiEntrada('vga')" type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button class="btn btn-danger pull-left" [routerLink]="['/locacoes']">Cancelar</button>
+            <button class="btn btn-success pull-right"
+              [disabled]="submittingForm || resourceForm.invalid || resource.status == 'CONCLUIDA'"
+              (click)="confirm()">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>
