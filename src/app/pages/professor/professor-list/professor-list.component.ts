@@ -56,7 +56,7 @@ export class ProfessorListComponent implements OnInit {
           this.totalRecords = pages.totalElements;
         },
         error => {
-          console.log(error);
+          
         }
       );
   }
@@ -86,7 +86,6 @@ export class ProfessorListComponent implements OnInit {
           this.professores = pages.content;
           this.totalRecords = pages.totalElements;
         },
-        err => console.error(err)
       );
   }
 

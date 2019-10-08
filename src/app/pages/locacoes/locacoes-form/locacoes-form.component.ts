@@ -74,7 +74,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       this.datashows = datashows;
      /*  this.datashows.push(this.resource.datashow); */
     }, (err) => {
-      console.log(err);
+      
     });
   }
 
@@ -82,7 +82,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     this.datashowService.getAll().subscribe((datashows) => {
       this.datashows = datashows;
     }, (err) => {
-      console.log(err);
+      
     });
   }
 
@@ -91,7 +91,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      err => console.log(err)
+      
     );
   }
 
@@ -100,7 +100,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      err => console.log(err)
+      
     );
   }
 
@@ -215,7 +215,13 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
             }
 
           },
-          (error) => alert('Ocorreu um erro no servidor, tente mais tarde')
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro ao carregar os dados'
+            });
+            this.router.navigateByUrl('/locacoes')
+          }
         );
     }
   }

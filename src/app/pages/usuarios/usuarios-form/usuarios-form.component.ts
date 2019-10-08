@@ -102,7 +102,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
     resource.niveis = new Array();
     resource.niveis.push(this.resourceForm.controls.niveis.value);
-    console.log(this.resource);
+    
 
     this.resourceService.create(resource).subscribe(
       () => this.actionsForSuccess(resource),

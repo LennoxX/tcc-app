@@ -140,7 +140,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         () => this.messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: error
+          detail: error.error.errors[0]
         }));
     }
   }

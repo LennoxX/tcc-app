@@ -41,7 +41,7 @@ export class UsuariosListComponent implements OnInit {
           this.totalRecords = pages.totalElements;
         },
         error => {
-          console.log(error);
+          
         }
       );
   }

@@ -86,7 +86,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   protected handleError(error: Response<T[]>): Observable<any> {
-    console.log('ERRO NA REQUISIÇÃO => ', error);
+    console.log('ERRO NA REQUISIÇÃO');
     // ERROR UNAUTHORIZED
     if (error.status === '401') {
       // REDIRECIONA PARA A TELA DE LOGIN

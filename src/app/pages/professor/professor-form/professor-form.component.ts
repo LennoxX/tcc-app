@@ -87,9 +87,9 @@ export class ProfessorFormComponent extends BaseResourceFormComponent<Professor>
           (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erro ao carregar os dados',
-              detail: error
+              summary: 'Erro ao carregar os dados'
             });
+            this.router.navigateByUrl('/professor');
           }
         );
     }

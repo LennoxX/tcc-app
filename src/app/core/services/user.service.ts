@@ -20,7 +20,7 @@ export class UserService extends BaseResourceService<Usuario> {
           this.setUsuarioLogado(usuario);
           return UserService.usuario;
         },
-        error => console.log(error)
+        
       );
     } else {
       return UserService.usuario;

@@ -64,7 +64,7 @@ export class DatashowListComponent implements OnInit {
           this.totalRecords = pages.totalElements;
         },
         error => {
-          console.log(error);
+          
         }
       );
   }
@@ -94,7 +94,6 @@ export class DatashowListComponent implements OnInit {
           this.datashows = pages.content;
           this.totalRecords = pages.totalElements;
         },
-        err => console.error(err)
       );
   }
 
