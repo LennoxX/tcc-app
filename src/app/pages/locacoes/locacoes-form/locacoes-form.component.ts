@@ -65,6 +65,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       this.getProfessores();
       this.getDatashows();
     }
+    console.log(this.resourceForm)
 
   }
 
@@ -108,7 +109,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     this.resourceForm = this.formBuilder.group({
       id: [null],
       professor: [{ value: null, disabled: this.currentAction === 'edit' }, Validators.required],
-      datashow: [{ value: null }, Validators.required],
+      datashow: [null, Validators.required],
       matricula: [{ value: null, disabled: true }],
       curso: [{ value: null, disabled: true }],
       numTombamento: [{ value: null, disabled: true }],
