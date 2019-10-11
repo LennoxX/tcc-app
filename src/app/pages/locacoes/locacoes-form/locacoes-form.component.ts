@@ -65,7 +65,6 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       this.getProfessores();
       this.getDatashows();
     }
-    console.log(this.resourceForm)
 
   }
 
@@ -73,7 +72,6 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
   getDatashowsDisponiveis() {
     this.datashowService.getAllDisponiveis().subscribe((datashows) => {
       this.datashows = datashows;
-     /*  this.datashows.push(this.resource.datashow); */
     }, (err) => {
       
     });
