@@ -11,7 +11,7 @@
       </h1>
     </div>
     <div class="content container-fluid">
-      <form [formGroup]="resourceForm">
+      <form (keydown.enter)="$event.preventDefault()" [formGroup]="resourceForm">
 
         <div class="box box-success">
           <div class="box-header with-border">
@@ -115,7 +115,7 @@
         </div>
       </form>
 
-      <form [formGroup]="updatePass">
+      <form (keydown.enter)="$event.preventDefault()" [formGroup]="updatePass">
         <div *ngIf="currentAction == 'edit'" class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Alterar Senha</h3>
@@ -126,12 +126,12 @@
               <div class="col-sm-4">
                 <p-fieldset legend="Senha Atual">
                   <input class="form-control" type="password" placeholder="Senha (Mínimo 5 caracteres)"
-                    formControlName="senhaAtual" />
+                    formControlName="password" />
                 </p-fieldset>
-                <div *ngIf="updatePass.controls['senhaAtual'].touched && updatePass.controls['senhaAtual'].invalid"
+                <div *ngIf="updatePass.controls['password'].touched && updatePass.controls['password'].invalid"
                   class="help-block invalid-feedback" style="color:#a94442">
-                  <div *ngIf="updatePass.controls['senhaAtual'].errors.required">Senha Obrigatória</div>
-                  <div *ngIf="updatePass.controls['senhaAtual'].errors.minlength">Mínimo 5 caracteres</div>
+                  <div *ngIf="updatePass.controls['password'].errors.required">Senha Obrigatória</div>
+                  <div *ngIf="updatePass.controls['password'].errors.minlength">Mínimo 5 caracteres</div>
                 </div>
               </div>
 
@@ -164,7 +164,7 @@
           <div class="box-footer">
             <button class="btn btn-danger pull-left" [routerLink]="['/home']">Cancelar</button>
             <button class="btn btn-success pull-right" [disabled]="submittingForm || updatePass.invalid"
-              (click)="confirm()">Alterar Senha</button>
+              (click)="confirmAlterarSenha()">Alterar Senha</button>
           </div>
         </div>
 

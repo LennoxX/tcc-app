@@ -33,8 +33,13 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
       this.resourceForm.controls.confirmPassword.setValidators([]);
     }
     this.usuarioLogado = this.userService.getInstance();
+    this.buildUpdatePassForm();
+  }
+
+  protected buildUpdatePassForm() {
     this.updatePass = this.formBuilder.group({
-      senhaAtual: [null, [Validators.required, Validators.minLength(5)]],
+      id: [null],
+      password: [null, [Validators.required, Validators.minLength(5)]],
       novaSenha: [null, [Validators.required, Validators.minLength(5)]],
       confirmNovaSenha: [null, [Validators.required, Validators.minLength(5)]],
     });
@@ -63,6 +68,8 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
             this.resource.password = '';
 
             this.resourceForm.patchValue(this.resource);
+          
+            this.updatePass.patchValue(this.resource);  
           },
           (error) => {
             this.messageService.add({
@@ -79,22 +86,70 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   checkPassword(form: FormGroup, senha: string, confirmSenha: string) {
     const varSenha = form.controls[senha].value;
     const varConfirmSenha = form.controls[confirmSenha].value;
+    console.log(this.resourceForm)
     if (varSenha !== varConfirmSenha) {
       form.controls[confirmSenha].setErrors({ invalid: true });
       return true;
     } else {
-      form.controls[confirmSenha].setErrors({ invalid: false });
+      form.controls[confirmSenha].valid
+      console.log('valid')
       return false;
     }
+    
   }
 
   confirm() {
     this.confirmationService.confirm({
-      message: 'Você tem certeza que deseja salvar o Usuário',
+      message: 'Você tem certeza que deseja salvar o Usuário?',
       accept: () => {
         this.submitForm();
       }
     });
+  }
+
+  confirmAlterarSenha() {
+    this.confirmationService.confirm({
+      message: 'Você tem certeza que deseja alterar a senha?',
+      accept: () => {
+        this.submitAlterarSenhaForm();
+      }
+    });
+  }
+
+
+  submitAlterarSenhaForm() {
+    const resource: Usuario = this.jsonDataToResourceFn(this.updatePass.value);
+
+    this.usuarioService.updatePassword(resource, this.updatePass.controls['novaSenha'].value).subscribe(
+      () => this.actionsForSuccess(resource),
+      error => this.actionsForError(error)
+    );
+
+  }
+
+  protected actionsForSuccess(resource: Usuario) {
+    this.router.navigateByUrl('/home').then(
+      () => this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Solicitação Processada com Sucesso!'
+      }));
+  }
+
+  protected actionsForError(error) {
+
+    this.submittingForm = false;
+
+    if (error.status === 422) {
+      this.serverErrorMessages = JSON.parse(error._body).errors;
+    } else {
+      this.router.navigateByUrl('/home').then(
+        () => this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: error.error.errors[0]
+        }));
+    }
   }
 
   protected createResource() {
@@ -112,6 +167,8 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   protected updateResource() {
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
+    resource.niveis = new Array();
+    resource.niveis.push(this.resourceForm.controls.niveis.value);
     this.resourceService.update(resource).subscribe(
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)

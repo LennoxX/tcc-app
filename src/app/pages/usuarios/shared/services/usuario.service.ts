@@ -14,6 +14,16 @@ export class UsuarioService extends BaseResourceService<Usuario> {
     super('usuario', injector);
   }
 
+
+ 
+  updatePassword(resource: Usuario, novaSenha: string): Observable<Usuario> {
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/password`;
+    return this.http.put(url, resource,  {params: {'novaSenha': novaSenha}}).pipe(
+      catchError(this.handleError),
+      map(() => resource)
+    );
+  }
+
 /*   getByParameters(page: number,
                   size: number,
                   identificacao: string,
