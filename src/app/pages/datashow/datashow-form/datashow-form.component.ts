@@ -101,6 +101,7 @@ export class DatashowFormComponent extends BaseResourceFormComponent<Datashow> i
               summary: 'Erro ao carregar os dados',
               detail: error
             });
+            this.router.navigateByUrl('/datashow')
           }
         );
     }

@@ -9,7 +9,7 @@
       </h1>
     </div>
     <div class="content container-fluid">
-      <form [formGroup]="resourceForm">
+      <form (keydown.enter)="$event.preventDefault()" [formGroup]="resourceForm">
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Informações da Locação</h3>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Locacao } from "./../shared/models/locacao.model";
 import { Component, OnInit } from "@angular/core";
 import { Page } from "src/app/shared/models/page";
@@ -24,7 +25,8 @@ export class LocacoesListComponent implements OnInit {
   constructor(
     private locacaoService: LocacaoService,
     private confirmationService: ConfirmationService,
-    protected messageService: MessageService
+    protected messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -122,5 +124,6 @@ export class LocacoesListComponent implements OnInit {
       summary: "Erro",
       detail: error
     });
+    this.router.navigateByUrl('/locacoes')
   }
 }
