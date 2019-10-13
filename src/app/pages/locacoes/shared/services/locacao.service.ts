@@ -4,6 +4,7 @@ import { Locacao } from '../models/locacao.model';
 import { Observable } from 'rxjs';
 import { Page } from 'src/app/shared/models/page';
 import { catchError, map } from 'rxjs/operators';
+import { Response } from 'src/app/shared/models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,15 @@ export class LocacaoService extends BaseResourceService<Locacao> {
     );
   }
 
+  getAllEmAndamento() {
+
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/abertas`;
+    return this.http.get(url).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToResources)
+    );
+
+  }
   concluir(locacao: Locacao) {
 
     const url = `${this.configService.getApiUrl()}${this.apiPath}/${locacao.id}/finalizar`;
