@@ -1,0 +1,87 @@
+<app-header></app-header>
+<app-side-menu></app-side-menu>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <app-bread-crumb [items]="[{text: 'Datashow', link: '/datashow'}, {text: 'Formulário'}]"></app-bread-crumb>
+      <h1>
+        {{pageTitle}}
+      </h1>
+    </div>
+    <div class="content container-fluid">
+
+      <form [formGroup]="resourceForm">
+
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">Informações do Datashow</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group form-row">
+
+              <div class="col-sm-3">
+                <p-fieldset legend="Identificação">
+                  <input formControlName="identificacao" type="text" required class="form-control"
+                    placeholder="Identificação">
+                </p-fieldset>
+              </div>
+
+              <div class="col-sm-3">
+                <p-fieldset legend="Nº de Tombamento">
+                  <input formControlName="numTombamento" type="text" required class="form-control"
+                    placeholder="Número de Tombamento">
+                </p-fieldset>
+              </div>
+
+              <div class="col-sm-2">
+                <p-fieldset legend="Status">
+                  <p-dropdown formControlName="status" [disabled]="currentAction == 'edit'" [options]="datashowStatus"
+                    optionLabel="label" required placeholder="Selecione um Status"></p-dropdown>
+                </p-fieldset>
+              </div>
+
+              <div class="col-sm-2">
+                <p-fieldset legend="Possui HDMI">
+                  <div class="ui-s">
+                    <div class="ui-s-12">
+                      <p-radioButton class="radioClear" name="hdmi" label="Sim" [value]="true"
+                        formControlName="possuiHdmi">
+                      </p-radioButton>
+                    </div>
+                    <div class="ui-s-12">
+                      <p-radioButton class="radioClear" name="hdmi" label="Não" [value]="false"
+                        formControlName="possuiHdmi">
+                      </p-radioButton>
+                    </div>
+                  </div>
+                </p-fieldset>
+              </div>
+
+              <div class="col-sm-2">
+                <p-fieldset legend="Possui VGA">
+                  <div class="ui-s">
+                    <div class="ui-s-12">
+                      <p-radioButton class="radioClear" name="vga" label="Sim" [value]="true"
+                        formControlName="possuiVga"></p-radioButton>
+                    </div>
+                    <div class="ui-s-12">
+                      <p-radioButton class="radioClear" name="vga" label="Não" [value]="false"
+                        formControlName="possuiVga"></p-radioButton>
+                    </div>
+                  </div>
+                </p-fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button class="btn btn-danger pull-left" [routerLink]="['/datashow']">Cancelar</button>
+            <button class="btn btn-success pull-right" [disabled]="submittingForm || resourceForm.invalid"
+              (click)="confirm()">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,11 +1,50 @@
-<section class="content-header">
- <!--  <app-bread-crumb [items]="[{text: 'Pontos de Risco'}]"></app-bread-crumb> -->
-  <h1>
-    Home
-  </h1>
+<app-header></app-header>
 
-</section>
+<app-side-menu></app-side-menu>
 
-<!-- Main content -->
-<section class="content container-fluid">
-</section>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+    </div>
+
+    <div class="content container-fluid">
+      <div *ngIf="locacoes.length == 0" class="row">
+        <h2>Não foram encontradas locações em andamento!</h2>
+      </div>
+      <div class="row card-group">
+
+        <div class="col-sm-3" *ngFor="let painel of locacoes">
+          <p-card>
+            <div style="margin-left: 10px;">
+              <div class="row" style="font-size: 1.2em; margin-bottom: 10px;">
+                <i class="pi pi-user" style="margin-right: 8px;"></i>
+                Professor: {{painel.professor.nome}}
+              </div>
+
+              <div class="row" style="font-size: 1.2em; margin-bottom: 10px;">
+                <i class="pi pi-desktop" style="margin-right: 8px;"></i>
+                Datashow: {{painel.datashow.identificacao}}
+              </div>
+
+              <div class="row" style="font-size: 1.2em; margin-bottom: 10px;">
+                <i class="pi pi-clock" style="margin-right: 8px;"></i>
+                Início: {{ painel.dataInicio | date :'dd/MM/yyyy HH:mm' }}
+              </div>
+
+            </div>
+            <p-footer>
+              <a [routerLink]="['/locacoes', painel.id, 'edit']" type="button" icon="pi pi-check"
+                style="margin-right: .25em" class="btn btn-sm btn-primary">Visualizar</a>
+            </p-footer>
+          </p-card>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

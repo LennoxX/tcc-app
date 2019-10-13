@@ -1,0 +1,61 @@
+<app-header></app-header>
+
+<app-side-menu></app-side-menu>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <app-bread-crumb [items]="[{text: 'Locações'}]"></app-bread-crumb>
+      <h1>
+        Lista de Locações
+      </h1>
+    </div>
+    <div class="content container-fluid">
+      <p-table class="table table-hover" [lazy]="true" [value]="locacoes" [paginator]="true" [rows]="10"
+        [totalRecords]="totalRecords" [responsive]="true">
+        <ng-template pTemplate="header">
+          <tr class="d-flex">
+            <th class="col-sm-3" style="text-align: center">Professor</th>
+            <th class="col-sm-3" style="text-align: center">Datashow</th>
+            <th class="col-sm-2" style="text-align: center">Data Início</th>
+            <th class="col-sm-2" style="text-align: center">Data Fim</th>
+            <th class="col-sm-3" style="text-align: center">Status</th>
+            <th class="col-sm-2" style="text-align: center">Ações</th>
+          </tr>
+          <tr class="d-flex">
+            <th class="col-sm-3"><input style="width:100%" class="form-control" pInputText
+                [(ngModel)]="filters.get('professor').filtro" (input)="pesquisar()" /></th>
+            <th class="col-sm-3"><input style="width:100%" class="form-control" pInputText
+                [(ngModel)]="filters.get('datashow').filtro" (input)="pesquisar()" /></th>
+            <th></th>
+            <th></th>
+            <th>
+              <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width':'100%'}" filter="true"
+                [options]="locacaoStatusEnum" optionLabel="label" placeholder="Selecione" [showClear]="true"
+                [(ngModel)]="filters.get('status').filtro" (onChange)="pesquisar()"></p-dropdown>
+            </th>
+            <th></th>
+          </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-locacao>
+          <tr class="d-flex">
+            <td>{{ locacao.professor.nome }}</td>
+            <td>{{ locacao.datashow.identificacao }}</td>
+            <td style="text-align: center">{{ locacao.dataInicio | date :'dd/MM/yyyy HH:mm' }}</td>
+            <td style="text-align: center">{{ locacao.dataFim | date :'dd/MM/yyyy HH:mm'}}</td>
+            <td style="text-align: center">{{ locacao.dataFim == null ? 'Em Andamento' : 'Concluída' }}</td>
+            <td style="text-align: center"> <a [routerLink]="[locacao.id, 'edit']" pTooltip="Visualizar"
+                tooltipPosition="top" class="btn btn-info btn-sm"><i class="pi pi-search"></i></a>
+              <a *ngIf="locacao.dataFim == null" pTooltip="Encerrar" (click)="concluirLocacao(locacao)" tooltipPosition="top"
+                class="btn btn-success btn-sm" style="margin-left: 5px"><i class="pi pi-check"></i></a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <br />
+      <button routerLink="new" class="btn btn-primary pull-right mt-2">Adicionar</button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

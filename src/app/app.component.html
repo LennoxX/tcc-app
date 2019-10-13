@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-<!--
+<body class="hold-transition skin-blue sidebar-mini fixed">
+
+  <!--
 BODY TAG OPTIONS:
 =================
 Apply one or more of the following classes to get the
@@ -22,31 +24,18 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="hold-transition skin-green sidebar-mini">
-  <div class="wrapper">
 
-    <header class="main-header">
-      <a [routerLink]="['home']" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>L</b>OC</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">Locação</span>
-      </a>
-      <app-header-nav></app-header-nav>
-    </header>
+  <router-outlet>
+  </router-outlet>
 
-    <aside class="main-sidebar">
-      <app-side-menu></app-side-menu>
-    </aside>
 
-    <div class="content-wrapper">
-      <router-outlet></router-outlet>
-    </div>
-
-    <footer class="main-footer">
-      <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> All rights reserved.
-    </footer>
-
-  </div>
+  <p-toast [baseZIndex]="999"></p-toast>
+  <p-confirmDialog #cd header="Confirmação" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
 </body>
+
 </html>
