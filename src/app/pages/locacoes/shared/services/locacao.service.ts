@@ -36,7 +36,7 @@ export class LocacaoService extends BaseResourceService<Locacao> {
 
   getAllEmAndamento() {
 
-    const url = `${this.configService.getApiUrl()}${this.apiPath}/abertas`;
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/dashboard`;
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToResources)
