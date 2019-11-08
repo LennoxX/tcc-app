@@ -155,8 +155,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   protected createResource() {
 
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
-    resource.niveis = new Array();
-    resource.niveis.push(this.resourceForm.controls.niveis.value);
+    resource.niveis = this.resourceForm.controls.niveis.value;
     
 
     this.resourceService.create(resource).subscribe(
@@ -167,8 +166,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   protected updateResource() {
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
-    resource.niveis = new Array();
-    resource.niveis.push(this.resourceForm.controls.niveis.value);
+    resource.niveis = this.resourceForm.controls.niveis.value;
     this.resourceService.update(resource).subscribe(
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)

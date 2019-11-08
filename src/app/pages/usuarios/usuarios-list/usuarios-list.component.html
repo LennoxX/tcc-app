@@ -28,7 +28,7 @@
           <tr>
             <td>{{usuario.nome}}</td>
             <td>{{(usuario.ativo == true ? 'Sim' : 'Não')}}</td>
-            <td>{{usuario.niveis[0]}}</td>
+            <td>{{usuario.niveis}}</td>
             <td>{{usuario.email}}</td>
             <td style="text-align: center;">
               <button [routerLink]="[usuario.id, 'edit']" type="button" class="btn btn-sm btn-info"><i
