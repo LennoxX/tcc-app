@@ -1,16 +1,17 @@
 import { Router } from '@angular/router';
-import { Locacao } from "./../shared/models/locacao.model";
-import { Component, OnInit } from "@angular/core";
-import { Page } from "src/app/shared/models/page";
-import { ConfirmationService, MessageService } from "primeng/api";
-import { LocacaoService } from "../shared/services/locacao.service";
+import { Locacao } from './../shared/models/locacao.model';
+import { Component, OnInit } from '@angular/core';
+import { Page } from 'src/app/shared/models/page';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { LocacaoService } from '../shared/services/locacao.service';
 
 @Component({
-  selector: "app-locacoes-list",
-  templateUrl: "./locacoes-list.component.html",
-  styleUrls: ["./locacoes-list.component.css"]
+  selector: 'app-locacoes-list',
+  templateUrl: './locacoes-list.component.html',
+  styleUrls: ['./locacoes-list.component.css']
 })
 export class LocacoesListComponent implements OnInit {
+
   page = 0;
   count = 10;
   totalRecords: number;
@@ -27,17 +28,17 @@ export class LocacoesListComponent implements OnInit {
     private confirmationService: ConfirmationService,
     protected messageService: MessageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loading = true;
-    this.filters.set("professor", { filtro: "", type: "input" });
-    this.filters.set("datashow", { filtro: "", type: "input" });
-    this.filters.set("status", { filtro: "", type: "input" });
+    this.filters.set('professor', { filtro: '', type: 'input' });
+    this.filters.set('datashow', { filtro: '', type: 'input' });
+    this.filters.set('status', { filtro: '', type: 'input' });
     this.getLocacoes(this.page, this.count);
     this.locacaoStatusEnum = [
-      { label: "Concluída", value: "CONCLUIDA" },
-      { label: "Em Andamento", value: "ANDAMENTO" }
+      { label: 'Concluída', value: 'CONCLUIDA' },
+      { label: 'Em Andamento', value: 'ANDAMENTO' }
     ];
   }
 
@@ -49,21 +50,21 @@ export class LocacoesListComponent implements OnInit {
   pesquisar() {
     // NO CASO DE LIMPAR A SELEÇÃO
     if (
-      this.filters.get("status").filtro == null ||
-      this.filters.get("status").filtro === ""
+      this.filters.get('status').filtro == null ||
+      this.filters.get('status').filtro === ''
     ) {
       this.load(
         0,
-        this.filters.get("professor").filtro,
-        this.filters.get("datashow").filtro,
-        ""
+        this.filters.get('professor').filtro,
+        this.filters.get('datashow').filtro,
+        ''
       );
     } else {
       this.load(
         0,
-        this.filters.get("professor").filtro,
-        this.filters.get("datashow").filtro,
-        this.filters.get("status").filtro.value
+        this.filters.get('professor').filtro,
+        this.filters.get('datashow').filtro,
+        this.filters.get('status').filtro.value
       );
     }
   }
@@ -95,12 +96,11 @@ export class LocacoesListComponent implements OnInit {
 
   concluirLocacao(locacao) {
     this.confirmationService.confirm({
-      message: "Você tem certeza que deseja concluir a locação?",
+      message: 'Você tem certeza que deseja concluir a locação?',
       accept: () => {
         this.locacaoService.concluir(locacao).subscribe(
           () => {
             this.actionsForSuccess();
-            this.load(0, "", "", "");
           },
           err => {
             this.actionsForError(err);
@@ -112,18 +112,21 @@ export class LocacoesListComponent implements OnInit {
 
   protected actionsForSuccess() {
     this.messageService.add({
-      severity: "success",
-      summary: "Sucesso",
-      detail: "Solicitação Processada com Sucesso!"
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Solicitação Processada com Sucesso!'
     });
+    this.getLocacoes(this.pageIndex, 10);
+    this.router.navigateByUrl('/locacoes', { skipLocationChange: false });
   }
 
   protected actionsForError(error) {
     this.messageService.add({
-      severity: "error",
-      summary: "Erro",
+      severity: 'error',
+      summary: 'Erro',
       detail: error
     });
-    this.router.navigateByUrl('/locacoes')
+    this.router.navigateByUrl('locacoes');
   }
+
 }

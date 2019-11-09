@@ -17,6 +17,6 @@ export class SideMenuComponent implements OnInit, AfterContentChecked {
     this.usuario = this.userService.getInstance();
   }
   isAdmin() {
-    if (this.usuario != null) return this.usuario.niveis.indexOf("ADMIN") != -1;
+    if (this.usuario != null) return this.usuario.nivel.indexOf("ADMIN") != -1;
   }
 }

@@ -14,8 +14,10 @@
       <li routerLinkActive="active"><a routerLink="/locacoes"><i class="fa fa-list"></i><span>Locações</span></a>
       </li>
       <!--   <li routerLinkActive="active"><a routerLink="/locacao"><i class="fa fa-sitemap"></i><span>Locações</span></a></li> -->
-      <li *ngIf="isAdmin()" routerLinkActive="active"><a routerLink="/usuario"><i class="fa fa-users"></i><span>Usuários</span></a></li>
-      <li *ngIf="isAdmin()" routerLinkActive="active"><a routerLink="/relatorios"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Relatórios</span></a></li>
+      <li *ngIf="isAdmin()" routerLinkActive="active"><a routerLink="/usuario"><i
+            class="fa fa-users"></i><span>Usuários</span></a></li>
+      <li *ngIf="isAdmin()" routerLinkActive="active"><a routerLink="/relatorios"><i class="fa fa-bar-chart"
+            aria-hidden="true"></i><span>Relatórios</span></a></li>
 
 
       <!--   <li class="treeview">
@@ -34,3 +36,8 @@
   </section>
 
 </aside>
+
+<footer class="main-footer">
+  <strong>Copyright &copy; 2019 <a href="https://www.uema.br/" target="_blank">UEMA</a>.</strong> Todos os direitos
+  reservados.
+</footer>

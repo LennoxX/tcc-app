@@ -30,7 +30,7 @@ export class AdminGuard implements CanActivate {
       this.http.post(`${this.configService.getAuthUrl()}valid/token`, this.tokenService.getToken()).subscribe((res) => {
         this.userService.getByToken().subscribe((user) => {
           this.usuario = user;
-          if (this.usuario.niveis.indexOf('ADMIN') !== -1) {
+          if (this.usuario.nivel.indexOf('ADMIN') !== -1) {
             return true;
           } else {
             this.router.navigateByUrl('/error/forbidden');

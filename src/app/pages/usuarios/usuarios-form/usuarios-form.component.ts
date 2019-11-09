@@ -14,7 +14,6 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> implements OnInit {
   usuarioLogado: Usuario;
-  niveis = new Array();
   updatePass: FormGroup;
 
   constructor(protected messageService: MessageService,
@@ -53,7 +52,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
       password: [null, [Validators.required, Validators.minLength(5)]],
       confirmPassword: [null, Validators.required],
       ativo: [null],
-      niveis: [null, Validators.required]
+      nivel: [null, Validators.required]
     });
   }
 
@@ -68,8 +67,8 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
             this.resource.password = '';
 
             this.resourceForm.patchValue(this.resource);
-          
-            this.updatePass.patchValue(this.resource);  
+
+            this.updatePass.patchValue(this.resource);
           },
           (error) => {
             this.messageService.add({
@@ -86,16 +85,14 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   checkPassword(form: FormGroup, senha: string, confirmSenha: string) {
     const varSenha = form.controls[senha].value;
     const varConfirmSenha = form.controls[confirmSenha].value;
-    console.log(this.resourceForm)
     if (varSenha !== varConfirmSenha) {
       form.controls[confirmSenha].setErrors({ invalid: true });
       return true;
     } else {
-      form.controls[confirmSenha].valid
-      console.log('valid')
+      form.controls[confirmSenha].valid;
       return false;
     }
-    
+
   }
 
   confirm() {
@@ -155,8 +152,8 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   protected createResource() {
 
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
-    resource.niveis = this.resourceForm.controls.niveis.value;
-    
+    resource.nivel = this.resourceForm.controls.nivel.value;
+
 
     this.resourceService.create(resource).subscribe(
       () => this.actionsForSuccess(resource),
@@ -166,7 +163,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   protected updateResource() {
     const resource: Usuario = this.jsonDataToResourceFn(this.resourceForm.value);
-    resource.niveis = this.resourceForm.controls.niveis.value;
+    resource.nivel = this.resourceForm.controls.nivel.value;
     this.resourceService.update(resource).subscribe(
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)
@@ -176,7 +173,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   exibirInfoAdmin() {
     if (this.userService.getInstance() != null) {
-      return this.userService.getInstance().niveis.indexOf('ADMIN') !== -1;
+      return this.userService.getInstance().nivel.indexOf('ADMIN') !== -1;
     }
 
   }

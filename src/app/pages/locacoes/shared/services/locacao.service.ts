@@ -53,4 +53,12 @@ export class LocacaoService extends BaseResourceService<Locacao> {
 
   }
 
+  getRelatorio(dataInicio: string, dataFim: string) {
+    const url = `${this.configService.getApiUrl()}${this.apiPath}/relatorio/${dataInicio}/${dataFim}`;
+    return this.http.get(url).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToResources)
+    );
+  }
+
 }

@@ -61,9 +61,6 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     if (this.currentAction === 'new') {
       this.getProfessoresElegiveis();
       this.getDatashowsDisponiveis();
-    } else {
-      this.getProfessores();
-      this.getDatashows();
     }
 
   }
@@ -73,15 +70,23 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     this.datashowService.getAllDisponiveis().subscribe((datashows) => {
       this.datashows = datashows;
     }, (err) => {
-      
+
     });
   }
 
   getDatashows() {
+    const tempList = new Array();
     this.datashowService.getAll().subscribe((datashows) => {
-      this.datashows = datashows;
+      datashows.forEach(datashow => {
+        if (this.resource.datashow.id === datashow.id) {
+          tempList.push(datashow);
+        } else if (this.resource.datashow.id !== datashow.id && datashow.status !== 'EMPRESTADO') {
+          tempList.push(datashow);
+        }
+        this.datashows = tempList;
+      });
     }, (err) => {
-      
+
     });
   }
 
@@ -90,7 +95,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      
+
     );
   }
 
@@ -99,7 +104,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      
+
     );
   }
 
@@ -213,13 +218,16 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
               this.resourceForm.controls.datashow.disable();
             }
 
+            this.getProfessores();
+            this.getDatashows();
+
           },
           (error) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Erro ao carregar os dados'
             });
-            this.router.navigateByUrl('/locacoes')
+            this.router.navigateByUrl('/locacoes');
           }
         );
     }
