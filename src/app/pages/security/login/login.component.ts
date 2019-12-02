@@ -1,15 +1,15 @@
 import { UserService } from './../../../core/services/user.service';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "./../shared/services/auth.service";
-import { Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
-import { LoginRequest } from "../shared/models/login-request.model";
-import { MessageService } from "primeng/components/common/messageservice";
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from './../shared/services/auth.service';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { LoginRequest } from '../shared/models/login-request.model';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -40,17 +40,17 @@ export class LoginComponent implements OnInit {
     this.loginRequest = Object.assign(new LoginRequest(), this.loginForm.value);
     this.authService.authenticate(this.loginRequest).subscribe(
       (response: any) => {
-        sessionStorage.setItem("token", response.accessToken);
+        sessionStorage.setItem('token', response.accessToken);
         this.loading = false;
-        this.userService.setUsuarioLogado(response.usuario)
-        this.router.navigateByUrl("home");
+        this.userService.setUsuarioLogado(response.usuario);
+        this.router.navigateByUrl('home');
       },
       err => {
         this.loading = false;
         this.messageService.add({
-          severity: "error",
-          summary: "Falha no Login",
-          detail: err.error.errors[0]
+          severity: 'error',
+          summary: 'Falha no Login',
+          detail: err.error.errors != null ? err.error.errors[0] : 'Falha na conexão com o servidor'
         });
       }
     );

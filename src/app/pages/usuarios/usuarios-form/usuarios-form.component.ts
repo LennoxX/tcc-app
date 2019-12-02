@@ -15,6 +15,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> implements OnInit {
   usuarioLogado: Usuario;
   updatePass: FormGroup;
+  cursos = new Array();
 
   constructor(protected messageService: MessageService,
               protected injector: Injector,
@@ -33,6 +34,13 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
     }
     this.usuarioLogado = this.userService.getInstance();
     this.buildUpdatePassForm();
+    this.cursos = [
+      { label: 'Engenharia de Computação', value: 'COMPUTACAO' },
+      { label: 'Engenharia Civil', value: 'CIVIL' },
+      { label: 'Engenharia Mecânica', value: 'MECANICA' },
+      { label: 'Engenharia de Produção', value: 'PRODUCAO' },
+      { label: 'Curso de Formação de Oficiais', value: 'CFO' },
+    ];
   }
 
   protected buildUpdatePassForm() {
@@ -48,6 +56,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
       id: [null],
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
+      curso: [null, [Validators.required]],
       username: [null, [Validators.required, Validators.minLength(5)]],
       password: [null, [Validators.required, Validators.minLength(5)]],
       confirmPassword: [null, Validators.required],
@@ -59,14 +68,19 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   protected loadResource() {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
-        switchMap(params => this.resourceService.getById(+params.get('id')))
+        switchMap(params => this.resourceService.findById(+params.get('id')))
       )
         .subscribe(
           (resource) => {
             this.resource = resource;
             this.resource.password = '';
-
+            this.cursos.forEach(item => {
+              if (item.value === resource.curso) {
+                this.resource.curso = item;
+              }
+            });
             this.resourceForm.patchValue(this.resource);
+            
 
             this.updatePass.patchValue(this.resource);
           },
@@ -103,6 +117,16 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
       }
     });
   }
+  submitForm() {
+    this.submittingForm = true;
+    
+    this.resourceForm.get('curso').setValue(this.resourceForm.get('curso').value.value);
+    if (this.currentAction === 'new') {
+      this.createResource();
+    } else {
+      this.updateResource();
+    }
+  }
 
   confirmAlterarSenha() {
     this.confirmationService.confirm({
@@ -117,7 +141,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   submitAlterarSenhaForm() {
     const resource: Usuario = this.jsonDataToResourceFn(this.updatePass.value);
 
-    this.usuarioService.updatePassword(resource, this.updatePass.controls['novaSenha'].value).subscribe(
+    this.usuarioService.updatePassword(resource, this.updatePass.controls.novaSenha.value).subscribe(
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)
     );
@@ -134,20 +158,15 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
   }
 
   protected actionsForError(error) {
-
     this.submittingForm = false;
-
-    if (error.status === 422) {
-      this.serverErrorMessages = JSON.parse(error._body).errors;
-    } else {
-      this.router.navigateByUrl('/home').then(
-        () => this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: error.error.errors[0]
-        }));
-    }
+    this.router.navigateByUrl('/home').then(
+      () => this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: error.error.errors[0]
+      }));
   }
+
 
   protected createResource() {
 

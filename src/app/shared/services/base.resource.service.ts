@@ -1,6 +1,5 @@
 import { Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -14,7 +13,6 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   protected http: HttpClient;
   protected configService: ConfigService = new ConfigService();
-  protected router: Router;
 
   constructor(protected apiPath: string, protected injector: Injector) {
     this.http = injector.get(HttpClient);
@@ -36,7 +34,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     );
   }
 
-  getById(id: number): Observable<T> {
+  findById(id: number): Observable<T> {
     const url = `${this.configService.getApiUrl()}${this.apiPath}/${id}`;
     return this.http.get(url).pipe(
       catchError(this.handleError),
@@ -86,11 +84,13 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   protected handleError(error: Response<T[]>): Observable<any> {
-    console.log('ERRO NA REQUISIÇÃO');
+    console.log('ERRO NA REQUISIÇÃO', error);
     // ERROR UNAUTHORIZED
     if (error.status === '401') {
       // REDIRECIONA PARA A TELA DE LOGIN
-     window.location.replace('/auth/login');
+      window.location.replace('/auth/login');
+    } else if (error.status === '0') {
+      window.location.replace('/auth/login');
     }
     return throwError(error);
   }

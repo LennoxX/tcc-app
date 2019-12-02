@@ -20,7 +20,7 @@
           <div class="box-body">
             <div class="form-group has-feedback row">
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p-fieldset legend="Nome">
                   <input formControlName="nome" type="text" required class="form-control" placeholder="Nome">
                 </p-fieldset>
@@ -31,7 +31,7 @@
 
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p-fieldset legend="Nome de Usuário">
                   <input formControlName="username" type="text" required class="form-control"
                     placeholder="Nome de Usuário (Mínimo 5 caracteres)">
@@ -42,7 +42,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p-fieldset legend="E-mail">
                   <input formControlName="email" type="text" required class="form-control" placeholder="E-mail">
                 </p-fieldset>
@@ -52,10 +52,16 @@
                   <div *ngIf="resourceForm.controls['email'].errors.email">Email Inválido</div>
                 </div>
               </div>
+              <div class="col-sm-3">
+                <p-fieldset legend="Curso">
+                  <p-dropdown formControlName="curso" [options]="cursos" optionLabel="label" [style]="{'width':'100%'}"
+                    required placeholder="Selecione um Curso"></p-dropdown>
+                </p-fieldset>
+              </div>
 
             </div>
             <div *ngIf="currentAction == 'new'" class="form-group has-feedback row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p-fieldset legend="Senha">
                   <input class="form-control" type="password" placeholder="Senha (Mínimo 5 caracteres)"
                     formControlName="password" />
@@ -66,7 +72,7 @@
                   <div *ngIf="resourceForm.controls['password'].errors.minlength">Mínimo 5 caracteres</div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p-fieldset legend="Confirmar Senha">
                   <input class="form-control" placeholder="Confirme a Senha (Mínimo 5 caracteres)" type="password"
                     formControlName="confirmPassword" />
@@ -80,7 +86,7 @@
             </div>
 
             <div *ngIf="exibirInfoAdmin()" class="form-group has-feedback row">
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <p-fieldset legend="Nível">
                   <div class="ui-s">
                     <div class="ui-s-12">
@@ -96,7 +102,7 @@
                   </div>
                 </p-fieldset>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <p-fieldset legend="Usuário Ativo">
                   <strong><label>{{resourceForm.controls['ativo'].value ? 'Sim' : 'Não'}}</label></strong>
                   <br />

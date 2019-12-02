@@ -9,9 +9,7 @@ COPY ./package*.json ./
 COPY ./server.js ./
 COPY --chown=node:node ./dist/locacao-app/* ./ 
 
-RUN npm install
-
 USER node
-
-EXPOSE 8080
+RUN npm install
+EXPOSE 3001
 CMD [ "node", "server.js" ]

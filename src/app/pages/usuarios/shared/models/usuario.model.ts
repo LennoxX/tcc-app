@@ -8,6 +8,7 @@ export class Usuario extends BaseResourceModel {
     public password?: string,
     public ativo?: boolean,
     public nivel?: string,
+    public curso?: string,
   ) {
     super();
   }

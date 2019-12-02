@@ -11,7 +11,7 @@
       </h1>
     </div>
     <div class="content container-fluid">
-      <p-table class="table table-hover" [lazy]="true" [value]="usuarios" (onLazyLoad)="loadLazy($event)"
+      <p-table class="table table-hover" [lazy]="true" [value]="resources" (onLazyLoad)="loadLazy($event)"
         [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [responsive]="true">
 
         <ng-template pTemplate="header">
@@ -22,13 +22,30 @@
             <th class="col-sm-3" style="text-align: center;">E-mail</th>
             <th class="col-sm-1" style="text-align: center;">Editar</th>
           </tr>
+          <tr class="d-flex">
+            <th class="col-sm-3"><input style="width:100%" class="form-control" pInputText
+                [(ngModel)]="filters.get('nome').filtro" (input)="pesquisar()" /></th>
+            <th>
+              <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width': '100%'}" filter="true"
+                [options]="status" optionLabel="label" placeholder="Selecione" [showClear]="true"
+                [(ngModel)]="filters.get('status').filtro" (onChange)="pesquisar()"></p-dropdown>
+            </th>
+            <th>
+              <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width': '100%'}" filter="true"
+                [options]="niveis" optionLabel="label" placeholder="Selecione" [showClear]="true"
+                [(ngModel)]="filters.get('nivel').filtro" (onChange)="pesquisar()"></p-dropdown>
+            </th>
+            <th class="col-sm-5"><input style="width:100%" class="form-control" pInputText
+                [(ngModel)]="filters.get('email').filtro" (input)="pesquisar()" /></th>
+            <th></th>
+          </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-usuario>
           <tr>
             <td>{{usuario.nome}}</td>
             <td>{{(usuario.ativo == true ? 'Sim' : 'Não')}}</td>
-            <td>{{usuario.niveis}}</td>
+            <td>{{usuario.nivel === 'ADMIN' ? 'Administrador' : 'Usuário'}}</td>
             <td>{{usuario.email}}</td>
             <td style="text-align: center;">
               <button [routerLink]="[usuario.id, 'edit']" type="button" class="btn btn-sm btn-info"><i

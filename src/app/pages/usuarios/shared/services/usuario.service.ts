@@ -9,6 +9,7 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService extends BaseResourceService<Usuario> {
+  
 
   constructor(public injector: Injector) {
     super('usuario', injector);
@@ -24,21 +25,24 @@ export class UsuarioService extends BaseResourceService<Usuario> {
     );
   }
 
-/*   getByParameters(page: number,
+  getByParameters(page: number,
                   size: number,
-                  identificacao: string,
-                  numTombamento: string,
-                  status: string): Observable<Page<Datashow>> {
+                  nome: string,
+                  status: string,
+                  nivel: string,
+                  email: string
+                  ): Observable<Page<Usuario>> {
     const url = `${this.configService.getApiUrl()}${this.apiPath}/${page}/${size}/parameters`;
     return this.http.get(url, {
       params: {
-        identificacao: identificacao,
-        numTombamento: numTombamento,
+        nome: nome,
         status: status,
+        nivel: nivel,
+        email: email,
       }
     }).pipe(
       catchError(this.handleError),
       map(this.jsonDataPagesToResources)
     );
-  } */
+  }
 }
