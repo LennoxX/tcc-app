@@ -20,7 +20,8 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel>
   }
 
   ngOnInit() {
-    this.getResources();
+    if (this.resources == null)
+      this.getResources();
   }
 
   protected getResources() {
@@ -56,10 +57,13 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel>
   }
 
   protected actionsForError(error) {
+    var mensagem;
+    if (error.status == 401)
+      mensagem = "Sessão inválida. Faça o login novamente!"
     this.messageService.add({
       severity: 'error',
       summary: 'Erro',
-      detail: error.error.errors != null ? error.error.errors[0] : 'Falha na conexão com o servidor'
+      detail: error.error.errors != null ? error.error.errors[0] : mensagem
     });
   }
 }

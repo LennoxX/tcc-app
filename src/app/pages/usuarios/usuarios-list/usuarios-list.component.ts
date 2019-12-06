@@ -1,5 +1,4 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { Page } from 'src/app/shared/models/page';
 import { Usuario } from '../shared/models/usuario.model';
 import { UsuarioService } from '../shared/services/usuario.service';
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
