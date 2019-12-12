@@ -192,7 +192,7 @@ export class UsuariosFormComponent extends BaseResourceFormComponent<Usuario> im
 
   exibirInfoAdmin() {
     if (this.userService.getInstance() != null) {
-      return this.userService.getInstance().nivel.indexOf('ADMIN') !== -1;
+      return this.userService.getInstance().nivel == 'ADMIN';
     }
 
   }
