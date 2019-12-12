@@ -1,32 +1,26 @@
 
 import { Professor } from './../shared/models/professor.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { Page } from 'src/app/shared/models/page';
 import { ProfessorService } from '../shared/services/professor.service';
+import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-professor-list',
   templateUrl: './professor-list.component.html',
   styleUrls: ['./professor-list.component.css']
 })
-export class ProfessorListComponent implements OnInit {
+export class ProfessorListComponent extends BaseResourceListComponent<Professor> implements OnInit {
 
-
-  page = 0;
-  count = 10;
-  totalRecords: number;
-  pageIndex: number;
-  pages: Page<Professor> = new Page<Professor>();
-  filters = new Map();
   cursos = new Array();
 
-
-  professores: Professor[] = new Array();
-
-  constructor(private professorService: ProfessorService) { }
+  constructor(private professorService: ProfessorService, private confirmationService: ConfirmationService, protected injector: Injector) {
+    super(professorService, injector);
+  }
 
   ngOnInit() {
-    this.getProfessores(this.page, this.count);
+    super.ngOnInit();
     this.filters.set('matricula', { filtro: '', type: 'input' });
     this.filters.set('nome', { filtro: '', type: 'input' });
     this.filters.set('curso', { filtro: '', type: 'input' });
@@ -39,42 +33,16 @@ export class ProfessorListComponent implements OnInit {
     ];
   }
 
-
   loadLazy(event) {
     this.pageIndex = event.first / event.rows;
-    this.getProfessores(this.pageIndex, this.count);
-  }
-
-
-  getProfessores(page: number, count: number) {
-    this.professorService
-      .findAll(page, count)
-      .subscribe(
-        pages => {
-          pages = pages;
-          this.professores = pages.content;
-          this.totalRecords = pages.totalElements;
-        },
-        error => {
-          
-        }
-      );
+    this.loadResourcesLazy(this.pageIndex);
   }
 
   pesquisar() {
-    // NO CASO DE LIMPAR A SELEÇÃO
-    if (
-      this.filters.get('curso').filtro == null ||
-      this.filters.get('curso').filtro === ''
-    ) {
+    if (this.filters.get('curso').filtro == null || this.filters.get('curso').filtro === '') {
       this.load(0, this.filters.get('matricula').filtro, this.filters.get('nome').filtro, '');
     } else {
-      this.load(
-        0,
-        this.filters.get('matricula').filtro,
-        this.filters.get('nome').filtro,
-        this.filters.get('curso').filtro.value,
-      );
+      this.load(0, this.filters.get('matricula').filtro, this.filters.get('nome').filtro, this.filters.get('curso').filtro.value);
     }
   }
 
@@ -83,7 +51,7 @@ export class ProfessorListComponent implements OnInit {
       .getByParameters(page, this.count, matricula, nome, curso)
       .subscribe(
         pages => {
-          this.professores = pages.content;
+          this.resources = pages.content;
           this.totalRecords = pages.totalElements;
         },
       );

@@ -1,106 +1,66 @@
-import { Router } from '@angular/router';
-import { Locacao } from "./../shared/models/locacao.model";
-import { Component, OnInit } from "@angular/core";
-import { Page } from "src/app/shared/models/page";
-import { ConfirmationService, MessageService } from "primeng/api";
-import { LocacaoService } from "../shared/services/locacao.service";
+import { Component, Injector, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
+import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
+import { LocacaoService } from '../shared/services/locacao.service';
+import { Locacao } from './../shared/models/locacao.model';
 
 @Component({
-  selector: "app-locacoes-list",
-  templateUrl: "./locacoes-list.component.html",
-  styleUrls: ["./locacoes-list.component.css"]
+  selector: 'app-locacoes-list',
+  templateUrl: './locacoes-list.component.html',
+  styleUrls: ['./locacoes-list.component.css']
 })
-export class LocacoesListComponent implements OnInit {
-  page = 0;
-  count = 10;
-  totalRecords: number;
-  pageIndex: number;
-  pages: Page<Locacao> = new Page<Locacao>();
-  filters = new Map();
+export class LocacoesListComponent extends BaseResourceListComponent<Locacao>
+  implements OnInit {
   locacaoStatusEnum = new Array();
-
-  locacoes: Locacao[] = new Array();
   loading = false;
 
   constructor(
-    private locacaoService: LocacaoService,
-    private confirmationService: ConfirmationService,
-    protected messageService: MessageService,
-    private router: Router
-  ) {}
+    private locacaoService: LocacaoService, private confirmationService: ConfirmationService, protected injector: Injector) {
+    super(locacaoService, injector);
+  }
 
   ngOnInit() {
+    super.ngOnInit();
     this.loading = true;
-    this.filters.set("professor", { filtro: "", type: "input" });
-    this.filters.set("datashow", { filtro: "", type: "input" });
-    this.filters.set("status", { filtro: "", type: "input" });
-    this.getLocacoes(this.page, this.count);
+    this.filters.set('professor', { filtro: '', type: 'input' });
+    this.filters.set('datashow', { filtro: '', type: 'input' });
+    this.filters.set('status', { filtro: '', type: 'input' });
     this.locacaoStatusEnum = [
-      { label: "Concluída", value: "CONCLUIDA" },
-      { label: "Em Andamento", value: "ANDAMENTO" }
+      { label: 'Concluída', value: 'CONCLUIDA' },
+      { label: 'Em Andamento', value: 'ANDAMENTO' }
     ];
   }
 
   loadLazy(event) {
     this.pageIndex = event.first / event.rows;
-    this.getLocacoes(this.pageIndex, this.count);
+    this.loadResourcesLazy(this.pageIndex);
   }
 
   pesquisar() {
-    // NO CASO DE LIMPAR A SELEÇÃO
-    if (
-      this.filters.get("status").filtro == null ||
-      this.filters.get("status").filtro === ""
-    ) {
-      this.load(
-        0,
-        this.filters.get("professor").filtro,
-        this.filters.get("datashow").filtro,
-        ""
-      );
+    if (this.filters.get('status').filtro == null || this.filters.get('status').filtro === '') {
+      this.load(0, this.filters.get('professor').filtro, this.filters.get('datashow').filtro, '');
     } else {
-      this.load(
-        0,
-        this.filters.get("professor").filtro,
-        this.filters.get("datashow").filtro,
-        this.filters.get("status").filtro.value
-      );
+      this.load(0, this.filters.get('professor').filtro, this.filters.get('datashow').filtro, this.filters.get('status').filtro.value);
     }
   }
 
   load(page, professor, datashow, status) {
     this.locacaoService
       .getByParameters(page, this.count, professor, datashow, status)
-      .subscribe(
-        pages => {
-          this.locacoes = pages.content;
-          this.totalRecords = pages.totalElements;
-        },
-      );
-  }
-
-  getLocacoes(page: number, count: number) {
-    this.locacaoService.findAll(page, count).subscribe(
-      pages => {
-        pages = pages;
-        this.locacoes = pages.content;
+      .subscribe(pages => {
+        this.resources = pages.content;
         this.totalRecords = pages.totalElements;
-        this.loading = false;
-      },
-      error => {
-        this.loading = false;
-      }
-    );
+      });
   }
 
   concluirLocacao(locacao) {
     this.confirmationService.confirm({
-      message: "Você tem certeza que deseja concluir a locação?",
+      message: 'Você tem certeza que deseja concluir a locação?',
       accept: () => {
         this.locacaoService.concluir(locacao).subscribe(
           () => {
             this.actionsForSuccess();
-            this.load(0, "", "", "");
+            this.loadResourcesLazy(this.pageIndex);
           },
           err => {
             this.actionsForError(err);
@@ -110,20 +70,4 @@ export class LocacoesListComponent implements OnInit {
     });
   }
 
-  protected actionsForSuccess() {
-    this.messageService.add({
-      severity: "success",
-      summary: "Sucesso",
-      detail: "Solicitação Processada com Sucesso!"
-    });
-  }
-
-  protected actionsForError(error) {
-    this.messageService.add({
-      severity: "error",
-      summary: "Erro",
-      detail: error
-    });
-    this.router.navigateByUrl('/locacoes')
-  }
 }

@@ -17,6 +17,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ListboxModule} from 'primeng/listbox';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -36,6 +37,7 @@ import {ListboxModule} from 'primeng/listbox';
     TooltipModule,
     InputSwitchModule,
     SelectButtonModule,
+    CalendarModule,
     ListboxModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.circleSwish
@@ -44,6 +46,7 @@ import {ListboxModule} from 'primeng/listbox';
   exports: [
     HeaderNavComponent,
     SideMenuComponent,
+    CalendarModule,
     BreadCrumbComponent,
     TableModule,
     HeaderComponent,

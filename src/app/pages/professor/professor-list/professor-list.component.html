@@ -11,7 +11,7 @@
     </div>
     <div class="content container-fluid">
 
-      <p-table class="table table-striped" [lazy]="true" [value]="professores" (onLazyLoad)="loadLazy($event)"
+      <p-table class="table table-striped" [lazy]="true" [value]="resources" (onLazyLoad)="loadLazy($event)"
         [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [responsive]="true">
         <ng-template pTemplate="header">
           <tr class="d-flex">
@@ -26,7 +26,7 @@
             <th class="col-sm-5"><input style="width:100%" class="form-control" pInputText [(ngModel)]="filters.get('nome').filtro"
                 (input)="pesquisar()" /></th>
             <th>
-              <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width':'100%'}" filter="true"
+              <p-dropdown emptyFilterMessage="Sem opções disponíveis." [style]="{'width': '100%'}" filter="true"
                 [options]="cursos" optionLabel="label" placeholder="Selecione" [showClear]="true"
                 [(ngModel)]="filters.get('curso').filtro" (onChange)="pesquisar()"></p-dropdown>
             </th>

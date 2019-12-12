@@ -1,23 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-.ng-valid[required],
-.ng-valid.required {
+input[type=text].ng-valid[required] {
   border-left: 5px solid #42a948; /* green */
 }
 
 .ng-invalid:not(form) {
-  border-left: 5px solid #a94442; /* red */
+  border-left: 5px solid #a94442;
 }
 p-autocomplete.ng-valid.required > div {
-  border-left: 5px solid #42a948; /* green */
+  border-left: 5px solid #42a948; 
 }
 
-p-dropdown.ng-invalid:not(form) > div {
-  border-left: 5px solid #a94442; /* red */
+p-dropdown.ng-invalid[required]> div {
+  border-left: 5px solid #a94442; 
 }
 
-p-dropdown.ng-valid[required],
-p-dropdown.ng-valid.required {
-  border-left: 0 none;
+p-dropdown.ng-valid[required]> div {
+  border-left: 5px solid #42a948; 
 }
 
 p-dropdown.ng-invalid:not(form) {
@@ -25,7 +23,7 @@ p-dropdown.ng-invalid:not(form) {
 }
 
 .radioClear.ng-invalid:not(form) > div {
-  border-left: 0 none /* red */
+  border-left: 0 none 
 }
 
 .radioClear.ng-valid[required],

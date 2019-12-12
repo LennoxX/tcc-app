@@ -11,7 +11,7 @@
       </h1>
     </div>
     <div class="content container-fluid">
-      <p-table class="table table-hover" [lazy]="true" [value]="locacoes" [paginator]="true" [rows]="10"
+      <p-table class="table table-hover" [lazy]="true" (onLazyLoad)="loadLazy($event)" [value]="resources" [paginator]="true" [rows]="10"
         [totalRecords]="totalRecords" [responsive]="true">
         <ng-template pTemplate="header">
           <tr class="d-flex">

@@ -16,7 +16,7 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./locacoes-form.component.css']
 })
 export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
-  implements OnInit, AfterContentChecked {
+  implements OnInit {
   professores: Professor[] = new Array();
   datashows: Datashow[] = new Array();
   professorSelecionado: Professor = new Professor();
@@ -41,9 +41,6 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     );
   }
 
-  ngAfterContentChecked() {
-
-  }
   ngOnInit() {
     this.cursos = [
       { label: 'Engenharia de Computação', value: 'COMPUTACAO' },
@@ -58,11 +55,12 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       { label: 'Emprestado', value: 'EMPRESTADO' },
     ];
     super.ngOnInit();
+    console.log(this.currentAction)
     if (this.currentAction === 'new') {
       this.getProfessoresElegiveis();
       this.getDatashowsDisponiveis();
-    } else {
-      this.getProfessores();
+    }else{
+      this.getProfessoresElegiveis();
       this.getDatashows();
     }
 
@@ -73,15 +71,23 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
     this.datashowService.getAllDisponiveis().subscribe((datashows) => {
       this.datashows = datashows;
     }, (err) => {
-      
+
     });
   }
 
   getDatashows() {
+    const tempList = new Array();
     this.datashowService.getAll().subscribe((datashows) => {
-      this.datashows = datashows;
+      datashows.forEach(datashow => {
+        if (this.resource.datashow != null && this.resource.datashow.id === datashow.id) {
+          tempList.push(datashow);
+        } else if (this.resource.datashow.id !== datashow.id && datashow.status !== 'EMPRESTADO' && datashow.status !== 'MANUTENCAO') {
+          tempList.push(datashow);
+        }
+        this.datashows = tempList;
+      });
     }, (err) => {
-      
+
     });
   }
 
@@ -90,7 +96,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      
+
     );
   }
 
@@ -99,7 +105,7 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       professores => {
         this.professores = professores;
       },
-      
+
     );
   }
 
@@ -195,13 +201,12 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
       () => this.actionsForSuccess(resource),
       error => this.actionsForError(error)
     );
-
   }
 
   protected loadResource() {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
-        switchMap(params => this.resourceService.getById(+params.get('id')))
+        switchMap(params => this.resourceService.findById(+params.get('id')))
       )
         .subscribe(
           (resource) => {
@@ -213,13 +218,16 @@ export class LocacoesFormComponent extends BaseResourceFormComponent<Locacao>
               this.resourceForm.controls.datashow.disable();
             }
 
+            this.getProfessores();
+            this.getDatashows();
+
           },
           (error) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Erro ao carregar os dados'
             });
-            this.router.navigateByUrl('/locacoes')
+            this.router.navigateByUrl('/locacoes');
           }
         );
     }

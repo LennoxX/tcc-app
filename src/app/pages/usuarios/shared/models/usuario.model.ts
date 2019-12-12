@@ -7,10 +7,10 @@ export class Usuario extends BaseResourceModel {
     public username?: string,
     public password?: string,
     public ativo?: boolean,
-    public niveis?: string[],
+    public nivel?: string,
+    public curso?: string,
   ) {
     super();
-    this.niveis = new Array();
   }
 
   static fromJson(jsonData: any): Usuario {

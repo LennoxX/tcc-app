@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<app-side-menu></app-side-menu>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <app-bread-crumb [items]="[{text: 'Relatórios', link: '/usuario'}, {text: 'Formulário'}]"></app-bread-crumb>
+    </div>
+    <div class="content container-fluid">
+
+      <h3>Selecione um Período para gerar o relatório</h3>
+      <p-calendar class="col-sm-4" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" (onSelect)="teste()"
+        [(ngModel)]="rangeDates" dateFormat="dd/mm/yy" selectionMode="range" [readonlyInput]="true"></p-calendar>
+        <br />
+        <br />
+        <br />
+        <br />
+      <p-table class="table table-hover" [value]="locacoes" [paginator]="true" [rows]="10" [totalRecords]="20"
+        [responsive]="true">
+        <ng-template pTemplate="header">
+          <tr class="d-flex">
+            <th class="col-sm-3" style="text-align: center">Professor</th>
+            <th class="col-sm-3" style="text-align: center">Curso</th>
+            <th class="col-sm-3" style="text-align: center">Datashow</th>
+            <th class="col-sm-2" style="text-align: center">Data Início</th>
+            <th class="col-sm-2" style="text-align: center">Data Fim</th>
+            <th class="col-sm-3" style="text-align: center">Status</th>
+            <th class="col-sm-2" style="text-align: center">Ações</th>
+          </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-locacao>
+          <tr class="d-flex">
+            <td>{{ locacao.professor.nome }}</td>
+            <td>{{getNomeCurso(locacao.professor.curso )}}</td>
+            <td>{{ locacao.datashow.identificacao }}</td>
+            <td style="text-align: center">{{ locacao.dataInicio | date :'dd/MM/yyyy HH:mm' }}</td>
+            <td style="text-align: center">{{ locacao.dataFim | date :'dd/MM/yyyy HH:mm'}}</td>
+            <td style="text-align: center">{{ locacao.dataFim == null ? 'Em Andamento' : 'Concluída' }}</td>
+            <td style="text-align: center"> <a [routerLink]="['/locacoes',locacao.id, 'edit']" pTooltip="Visualizar"
+                tooltipPosition="top" class="btn btn-info btn-sm"><i class="pi pi-search"></i></a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <div *ngIf="locacoes != null">
+        Quantidade de Locações no período: {{locacoes.length}}
+      </div>
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
