@@ -30,7 +30,7 @@ export class UserGuard implements CanActivate {
         this.tokenService.getToken()).subscribe((res) => {
           this.userService.getByToken().subscribe((user) => {
             this.usuario = user;
-            if (this.usuario.nivel.indexOf('ADMIN') !== -1) {
+            if (this.usuario.nivel == 'ADMIN') {
               return true;
             } else {
               if (this.usuario.id === idUsuario) {
