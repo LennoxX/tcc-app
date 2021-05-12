@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "admin-lte": "^2.4.15",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "ngx-loading": "^3.0.1",
     "ngx-toastr": "^10.0.4",
     "primeicons": "^2.0.0",
